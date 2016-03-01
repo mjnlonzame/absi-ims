@@ -1,0 +1,38 @@
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "Arial Rounded MT Std","Arial Rounded MT Bold",Arial,Helvetica,sans-serif;
+}
+
+a{
+	text-decoration: none;
+}
+
+ul{
+	padding: 0;
+}
+
+.float-right{
+	float: right;
+}
+
+div.sidenav a {
+	display: block;
+}
+
+.ui-jqgrid-btable td {
+	vertical-align: top;
+}
+
+table#fields-table td {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.hidden {
+	display: none;
+}
+
+span.ui-widget-content .ui-spinner-input {
+	background-color: white;
+}

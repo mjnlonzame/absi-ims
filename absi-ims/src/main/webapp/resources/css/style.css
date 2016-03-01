@@ -1,0 +1,294 @@
+
+.wrapper, .wrapper-admin{
+	width: 980px;
+	margin: 0 auto;
+}
+
+.div-head{
+	text-align: right;
+}
+
+.div-head label{
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.user-name{
+	color: #FFFFFF ;
+	background: #bf0e0e ;
+}
+
+.div-head a, .user-name{
+	font-size: 13px;
+	font-weight: 500 ;
+	border-bottom-right-radius: 10px;
+	-moz-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	color: #000000;
+	background: #b6acac;
+	padding: 5px 10px 10px 10px;
+}
+
+.div-head a:hover{
+	color: #FFFFFF;
+	background: #bf0e0e;
+}
+
+.header img{
+	width: 150px;
+	float: left;
+	margin: -10px 10px;
+}
+
+.header h2{
+	float: right;
+	font-weight: 300;
+	background: #bf0e0e;
+	color: #f2efef;
+	width: 790px;
+	padding: 25px;
+	border-top-left-radius: 80px;
+	border-bottom-left-radius: 20px;
+	display:inline-block;
+	position:relative;
+	
+}
+
+.header strong {
+    float: right;
+    font-weight: 300;
+    background: #bf0e0e;
+    color: #f2efef;
+    width: 790px;
+    padding: 15px;
+    margin-top: 30px;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 20px;
+}
+
+
+.btnHeader {
+	float: right;
+	margin: 10px 0 0 5px;
+	border: none;
+	border-radius: 5px;
+	width: 80px;
+	color: white;
+	background: #837d7d ;
+	font-weight: 500;
+}
+
+.search-options .btnAdd{
+	border: none;
+  	border-radius: 5px;
+  	color: white;
+  	background: #837d7d;
+  	font-weight: 500;
+}
+
+.btnAdd:hover {
+	background-color: #e18989;
+}
+
+.btnHeader:hover {
+	background-color: #e18989;
+}
+
+.search-btn{
+	border: none;
+  	border-radius: 5px;
+  	color: white;
+  	background: #837d7d;
+  	font-weight: 500;
+}
+
+.btn{
+	border: none ;
+  	border-radius: 5px;
+  	color: #bf0e0e;
+  	background: #b6acac;
+  	font-weight: 600;
+}
+
+
+.main-body{
+	clear: both;
+	position: relative;
+}
+
+.sidenav{
+	background: #bf0e0e;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	width: 180px;
+	padding: 20px 0;
+	float: left;
+}
+
+.sidenav label{
+	color: #FFFFFF;
+	margin: 0 0 0 50px;
+	font-weight: 600;
+	font-size: 20px;
+	
+}
+
+.sidenav ul li{
+	list-style: none;
+	font-size: 15px;
+	padding: 10px;
+	border-top: 1px solid #000;
+	box-shadow: 0px 1px 0px #e13030 inset;
+	-moz-box-shadow: 0px 1px 0px #e13030 inset;
+	-webkit-box-shadow: 0px 1px 0px #e13030 inset;
+}
+
+
+.sidenav ul li:hover{
+	background: #e38585;
+}
+
+
+
+.active{
+	background: #e38585;
+}
+
+.sidenav a{
+	color: #fdfcfc;
+	font-weight: 500;
+	margin: 0 0 0 10px;
+}
+
+.main-body-2{
+	position: absolute;
+	width: 780px;
+	
+	right: 0;
+}
+
+
+.main-body-3{
+	position: absolute;
+	width: 780px;	
+	margin: 50px 0 0 180px;
+}
+
+.search-options{
+	margin: 30px 0 0 0;
+}
+
+.search-options .field{
+    border: 1px solid #B8B8B8;
+    border-radius: 6px;}
+
+.search-options .field, 
+.search-options .button{
+	padding: 5px;
+}
+
+.main-body-2 table{
+	width: 100%;
+	margin: 20px 0 0 0;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.main-body-2 table .trhead{
+	color: #FFFFFF;
+	background: #b6acac ;
+	border-bottom: 2px solid #B2B2B2 ;
+	font-weight: 600;
+}
+
+.main-body-2 table .trhead:hover{
+	cursor: default ;
+}
+
+.main-body-2 table td{
+	padding: 9px;
+}
+
+.main-body-2 table tr:hover{
+	cursor: pointer;
+	background: #F4F4F4;
+}
+
+.main-body-2 table tr{
+	border-bottom: 1px solid rgba(219, 219, 219, 0.46);
+}
+
+.form-user ul li{
+	list-style: none;
+	margin: 7px 0;
+	font-size: 13px;
+	
+}
+
+.form-user ul li label{
+	display: inline-block;
+	width: 250px;
+}
+
+.form-user input{
+	margin: 0 0 0 10px;
+	border: 1px solid #BBBABA;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+
+.form-user .checkbox-gender{
+	margin: -25px 0 0 265px;
+	border: 1px solid #BBBABA;
+	border-radius: 5px;
+	padding: 5px;
+	width: 180px;
+	
+}
+
+
+.form-user input.inputfield{
+	margin: 0 0 0 10px;
+	border: 1px solid #BBBABA;
+	border-radius: 5px;
+	padding: 5px;
+	width: 200px;
+}
+
+.form-user textarea{
+	margin: -17px 0 0 260px;
+	border: 1px solid #BBBABA;
+	border-radius: 5px;
+	padding: 5px;
+	width: 300px;
+
+}
+.form-user select{
+	background: #FFFFFF;
+	margin: 0 0 0 10px;
+	border: 1px solid #BBBABA;
+	border-radius: 5px;
+	padding: 5px;
+	width: 180px;
+}
+/*
+.view-user ul li{
+	margin: 17px 0;
+}
+
+.view-user ul li span{
+	margin: 0 0 0 10px;
+}
+*/
+.pay-form ul li:last-child{
+	margin-top: 30px;
+}
+
+.clr {
+	clear:both;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+	<!-- Bootstrap -->
+    <link href="css/utility.css" rel="stylesheet">  
+    <link href="css/style.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="css/bootstrap.min.css">  
+    
+	<!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>      
+  </head>
+  
+  <body>   
+      <div class="wrapper-admin"> 
+        <!-- Top Header -->
+        <div class="div-head">
+            <label class="teller-name">Nikki Del Rosario</label>
+            <a href="#">Logout</a>
+        </div>
+        <!-- Header -->
+        <div class="header">
+            <img src="../icons/LogiIcon.jpeg">
+            <h2>List of Users</h2>
+        </div>
+        <!-- Main Body -->
+        <div class="main-body">
+          <div class="sidenav">
+            <label>Admin</label>
+            <ul>
+              <li class="active"><a href="list-users.html">List of Users</a></li>
+              <li><a href="create-user.html">Create New User</a></li>
+ 
+            </ul>
+          </div>
+          <div class="main-body-2">
+            <div class="search-options">
+			  <input type="text" class="field">
+			  <input type="button" value="Search" class="search-btn button">
+			</div>
+			
+			<table>
+			  <tr class="trhead">
+			    <td>User Type</td>
+			    <td> Name </td>
+			    <td> Username </td>
+			    <td> Password </td>
+			    
+			  </tr>
+			  <tr onclick="location.href='view-users.html'">
+			    <td>Employee</td>
+			    <td>Dominique Frances Del Rosario</td>
+			    <td>delrosariod</td>
+			    <td>Machiatto!@3</td>
+			    
+			  </tr>
+			  <tr onclick="location.href='view-users.html'">
+			    <td>Client</td>
+			    <td>Splash Corporations</td>
+			    <td>splashcorporations</td>
+			    <td>splashGregorio</td>
+			    
+			  </tr>                            
+			  
+			  <tr onclick="location.href='view-users.html'">
+			    <td>Encoder</td>
+			    <td>Gregoria T. Manoloto</td>
+			    <td>gManoloto</td>
+			    <td>pashWord!@#4</td>
+			    
+			  </tr>                            
+			</table>
+			
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+	<!-- Bootstrap -->
+    <link href="css/utility.css" rel="stylesheet">  
+    <link href="css/style.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    
+	
+	
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+	<!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>      
+  
+</head>
+  
+  
+<body>
+
+<div class="wrapper-admin"> 
+	<!-- Top Header -->
+    <div class="div-head">
+      <label class="user-name">Nikki Del Rosario</label>
+      <a href="#">Logout</a>
+	</div>
+
+	<!-- Header -->
+    <div class="header">
+        <img src="images/LogiIcon.jpeg">
+        <strong>&nbsp  User Details</strong>			
+    </div>
+    
+    
+    	<button class="btnHeader" type="button" id="btnCancel" onclick="location.href='main-page.html'">Cancel</button>
+    	<button class="btnHeader" type="button" id="btnDelete">Delete</button>
+    	<button class="btnHeader" type="button" id="btnEdit">Edit</button>
+
+	<!-- Main Body -->
+    <div class="main-body">
+        <div class="main-body-2">
+			<form class="form-user view-products">
+				<ul>
+				
+					<li><label><strong> Outlet Store </strong></label>:<span><c:out value="Employee"/></span></li>	
+                    <li><label><strong> Supplier </strong></label>:<span><c:out value="delrosariod"/></span></li>
+                    <li><label><strong> Product Categroy </strong></label>:<span><c:out value="Machiatto!@3"/></span></li>
+                    <li><label><strong> Product Name </strong></label>:<span><c:out value="Biolinks"/></span></li>
+                    <li><label><strong> Unit Price </strong></label>:<span><c:out value="Nikki"/></span></li>
+                    <li><label><strong> SKU </strong></label>:<span><c:out value="Del Rosario"/></span></li>
+					<li><label><strong> Product Description </strong></label>:<span><c:out value="Del Rosario"/></span></li>
+					
+				</ul>
+			</form>
+		</div>
+    </div>
+
+
+
+</div>
+  
+</body>
+</html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="weekly_report" language="groovy" pageWidth="1200" pageHeight="842" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4a71c17-5764-45dc-b38f-5b6a159137dc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ims.inventory]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="amountOfftake" class="java.math.BigDecimal"/>
+	<field name="deliveredItem" class="java.lang.Long"/>
+	<field name="endPeriod" class="java.util.Date"/>
+	<field name="gondolaItem" class="java.lang.Long"/>
+	<field name="outOfStockDay" class="java.lang.Long"/>
+	<field name="period" class="java.util.Date"/>
+	<field name="previousStock" class="java.lang.Long"/>
+	<field name="shelvesItem" class="java.lang.Long"/>
+	<field name="startPeriod" class="java.util.Date"/>
+	<field name="stockOfftake" class="java.lang.Long"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="warehouseItem" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="444" y="21" width="269" height="40" uuid="79b32df3-0a17-46de-bbac-5e7584c3dd6f"/>
+				<textElement>
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Weekly Inventory]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="105" height="20" uuid="8777d864-4a01-4a3a-9609-e84dec199184"/>
+				<text><![CDATA[previousStock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="105" height="20" uuid="6f5c6bcf-eda6-4fbc-b8ec-eb86488eda6c"/>
+				<text><![CDATA[startPeriod]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="0" width="105" height="20" uuid="3001fda5-627d-4082-bc26-110fa643688a"/>
+				<text><![CDATA[stockOfftake]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="0" width="105" height="20" uuid="3c647f7a-f404-43f6-9552-05ca0d9eda2d"/>
+				<text><![CDATA[endPeriod]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="105" height="20" uuid="16ac9a8c-370b-4689-9e5e-2f7fd7a13ff4"/>
+				<text><![CDATA[deliveredItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="0" width="105" height="20" uuid="d565c08d-e199-46fe-a2a7-af3db77435fd"/>
+				<text><![CDATA[shelvesItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="630" y="0" width="105" height="20" uuid="0957397e-2705-4f7e-b468-429c07e44493"/>
+				<text><![CDATA[outOfStockDay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="735" y="0" width="105" height="20" uuid="13228a19-2569-43f5-952b-2414243e3a87"/>
+				<text><![CDATA[warehouseItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="840" y="0" width="105" height="20" uuid="b260b48e-5f35-455c-b83b-b89cef18a83d"/>
+				<text><![CDATA[gondolaItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="945" y="0" width="105" height="20" uuid="59c74693-6efd-4d4a-b2a2-3f38e7442a47"/>
+				<text><![CDATA[amountOfftake]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1050" y="0" width="105" height="20" uuid="e4af0011-b784-47b6-a50a-3cd7364d5050"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="105" height="20" uuid="3e233456-faee-447b-a6ac-0ae71f691885"/>
+				<textFieldExpression><![CDATA[$F{previousStock}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="105" y="0" width="105" height="20" uuid="a9364e64-341d-4dff-804a-6712f0c7270b"/>
+				<textFieldExpression><![CDATA[$F{startPeriod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="105" height="20" uuid="7174ddd7-fc5f-448d-b8c5-9cf51245a1b3"/>
+				<textFieldExpression><![CDATA[$F{stockOfftake}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="315" y="0" width="105" height="20" uuid="d9767733-7ddd-4c7f-b342-c1eed0cc25a3"/>
+				<textFieldExpression><![CDATA[$F{endPeriod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="105" height="20" uuid="f4c883df-7063-4b22-abc2-821425427109"/>
+				<textFieldExpression><![CDATA[$F{deliveredItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="105" height="20" uuid="2470944b-1a0c-4c7c-9ad5-83a79d603c88"/>
+				<textFieldExpression><![CDATA[$F{shelvesItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="630" y="0" width="105" height="20" uuid="e7a5f7c0-cf7c-4ea6-b84d-e99932a3aed7"/>
+				<textFieldExpression><![CDATA[$F{outOfStockDay}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="735" y="0" width="105" height="20" uuid="5a3a33fb-6cc1-4384-9592-4241d9a014f7"/>
+				<textFieldExpression><![CDATA[$F{warehouseItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="840" y="0" width="105" height="20" uuid="b2ff2b4c-1e7d-4bad-859c-3f83f52d9e3a"/>
+				<textFieldExpression><![CDATA[$F{gondolaItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="945" y="0" width="105" height="20" uuid="65d80f59-318a-4dc6-901d-2e83654e9b58"/>
+				<textFieldExpression><![CDATA[$F{amountOfftake}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1050" y="0" width="105" height="20" uuid="50b0c0c5-e4c5-44eb-aed8-df31d35c1c8a"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

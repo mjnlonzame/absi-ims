@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+	<!-- Bootstrap -->
+    <link href="css/utility.css" rel="stylesheet">  
+    <link href="css/style.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link href="css/datepicker.css" rel="stylesheet">
+	
+	
+    <!-- jQuery library -->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    	
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>      
+	
+	
+	<!-- Include Bootstrap Datepicker -->
+	<script src="scripts/bootstrap-datepicker.js"></script>
+	
+	
+   
+  </head>
+  
+  <body>   
+      <div class="wrapper-admin"> 
+        <!-- Top Header -->
+        <div class="div-head">
+            <label class="teller-name">Nikki Del Rosario</label>
+            <a href="#">Logout</a>
+        </div>
+        <!-- Header -->
+        <div class="header">
+            <img src="images/LogiIcon.jpeg">
+            <strong>&nbsp Create User</strong>			
+        </div>
+		
+		
+			<button class="btnHeader" type="button" id="btnCancel" onclick="location.href='main-page.html'">Cancel</button>
+			<button class="btnHeader" type="button" id="btnSubmit">Submit</button>
+				
+		
+        <!-- Main Body -->
+        <div class="main-body">
+
+          <div class="main-body-2">
+            <form class="form-user">
+            <ul>				
+				<li><label><strong> User Type </strong></label>:<select>
+				                                <option>  </option>
+												<option> Admin </option>
+				                                <option> Encoder </option>
+				                                <option> Client </option>
+				                              </select>
+				</li>
+				
+				<li><label><strong> Username </strong></label>:<input type="text"/></li>
+				<li><label><strong> Password </strong></label>:<input type="text"/></li>
+				<li><label><strong> Client Name </strong></label>:<input type="text"/></li>
+				<li><label><strong> First Name </strong></label>:<input type="text"/></li>
+				<li><label><strong> Middle Name </strong></label>:<input type="text"/></li>	
+				<li><label><strong> Last Name </strong></label>:<input type="text"/></li>	
+				
+				<li>
+					<label><strong> Birthday: </strong></label>:<input type="text" id="birthDate-dp" />
+				</li>
+				
+
+				
+				<li>
+					<label for ="Gender"> <strong> Gender </strong></label>:
+						<div class ="checkbox-gender">
+							<label class="checkbox-inline"><input type="checkbox" value="">Female</label><br>
+							<label class="checkbox-inline"><input type="checkbox" value="">Male</label>
+						</div>
+                </li>
+                
+				<li><label><strong> Contact Number </strong></label>:<input type="text"/></li>
+                <li><label><strong> E-mail Address </strong></label>:<input type="text"/></li>					
+				<li><label><strong> Address </strong></label>:<input type="text"/></li>
+				<li><label><strong> City </strong></label>:<input type="text"/></li>
+				<li><label><strong> Postal Code </strong></label>:<input type="text"/></li>
+				
+				
+
+            </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>
+
+
+
+
+<script type="text/javascript">
+	// When the document is ready
+	$(document).ready(function () {
+		
+		$('#birthDate-dp').datepicker({
+		
+		locale: {
+			format: "dd/mm/yyyy"
+		
+				}
+		});  
+	
+	});
+</script>

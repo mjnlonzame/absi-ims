@@ -1,0 +1,282 @@
+	body
+	{
+		margin: 0;
+		height: 100%;
+		
+		
+	}
+	
+	.navbar
+	{
+		height: 90px;
+		background-color: #B20000;
+	}
+	
+		
+	.container-logo
+	{
+		/* 		
+		padding-top:	10px;
+		padding-left:	50px;
+		filter: alpha(opacity=40);*/
+		padding: 20px 0 11px 50px;
+		filter: alpha(opacity=40);
+		
+	}
+	
+	.userMenu
+	{
+		right: 10px;
+		margin-left:-150px;
+		top:10px;
+		position:absolute;
+	}
+	
+	.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus 
+	{
+		background: transparent;
+	}
+	
+	.dropdown ul.dropdown-menu 
+	{
+		border-radius:4px;
+		box-shadow:none;
+		margin-top:10px;
+		<!-- width:300px; -->
+	}
+	
+	.dropdown ul.dropdown-menu:before 
+	{
+		content: "";
+		border-bottom: 10px solid #fff;
+		border-right: 10px solid transparent;
+		border-left: 10px solid transparent;
+		position: absolute;
+		top: -10px;
+		right: 16px;
+		z-index: 10;
+		
+	}
+
+	.dropdown ul.dropdown-menu:after 
+	{
+		content: "";
+		border-bottom: 12px solid #ccc;
+		border-right: 12px solid transparent;
+		border-left: 12px solid transparent;
+		position: absolute;
+		top: -12px;
+		right: 14px;
+		z-index: 9;
+	}	
+	
+	.navbar-top-links 
+	{
+		margin-right: 0;
+	} 
+	
+	.panel-default
+	{
+		/*height: calc(100vh - 145px);*/
+		height: auto;
+	}
+	
+	.huge {
+    font-size: 28px;
+	}
+	
+/*--------------------- Panel  green ---------------------------*/
+	.panel-green {
+		border-color: #5cb85c;
+	}
+
+	.panel-green .panel-heading {
+		border-color: #5cb85c;
+		color: #fff;
+		background-color: #5cb85c;
+	}
+
+	.panel-green a {
+		color: #5cb85c;
+	}
+	
+	.panel-green a:hover
+	{
+		color: #3d8b3d;
+	}
+	
+/*--------------------- Panel  red ---------------------------*/
+	.panel-red {
+    border-color: #d9534f;
+	}
+	
+	.panel-red .panel-heading {
+		border-color: #d9534f;
+		color: #fff;
+		background-color: #d9534f;
+	}
+	
+	.panel-red a {
+		color: #d9534f;
+	}
+	
+	.panel-red a:hover {
+		color: #b52b27;
+	}
+
+/*--------------------- Panel  blue ---------------------------*/	
+	.panel-blue 
+	{
+    border-color: #3366CC;
+	}
+	
+	.panel-blue .panel-heading 
+	{
+		border-color: #3366CC;
+		color: #fff;
+		background-color: #3366CC;
+	}
+	
+	.panel-blue a 
+	{
+		color: #3366CC;
+	}
+	
+	.panel-blue a:hover 
+	{
+		color: #b52b27;
+	}
+/*-------------------------- panel-orange ----------------------*/ 
+	.panel-orange 
+	{
+    border-color: #FF7519;
+	}
+	
+	.panel-orange .panel-heading 
+	{
+		border-color: #FF7519;
+		color: #fff;
+		background-color: #FF7519;
+	}
+	
+	.panel-orange a 
+	{
+		color: #FF7519;
+	}
+	
+	.panel-orange a:hover 
+	{
+		color: #b52b27;
+	}
+
+
+	.panel-AddClient
+	{
+		border-color: #BFBF9E;
+		height: auto;
+		width: auto;	
+	}
+	
+	.panel-AddClient .panel-heading
+		{
+			background-color: gray;
+		}
+	
+	
+	.panel-AddEmployees
+	{
+		border-color: #BFBF9E;
+		height: auto;
+		width: auto;	
+	}
+	
+	.panel-AddEmployees .panel-heading
+		{
+			background-color: gray;
+		}
+	
+	.panel-ViewClients .panel-heading
+		{
+			background-color: gray;
+		}
+		
+		
+	.panel-ViewClients
+	{
+		border-color: #BFBF9E;
+		height: auto;
+		width: auto;	
+	}
+	
+	.panel-AddProduct
+	{
+		border-color: #BFBF9E;
+		height: auto;
+		width: auto;	
+	}
+	
+	.panel-AddProduct .panel-heading
+		{
+			background-color: gray;
+		}
+	
+	
+	.panel-AddOutlet
+	{
+		border-color: #BFBF9E;
+		height: auto;
+		width: auto;	
+	}
+	
+	.panel-AddOutlet .panel-heading
+		{
+			background-color: gray;
+		}
+	
+	
+	
+	
+	
+/*-------------------------- test only ----------------------*/ 	
+	span.glyphicon-user
+	{
+		font-size: 1.3em;
+		color: white;
+		padding-top: 50px; 
+	}
+	
+	.container-fluid-body
+	{
+		padding-top: 180px;
+		padding-left: 55px;
+		padding-right: 55px;
+	}
+	
+	nav.nav-tabs
+	{
+		width: 100%;
+	}
+	
+	/*---------------------------------------------------------*/ 
+	.footer
+	{
+		height: 50px;
+	}
+	
+	.container-fluid-footer
+	{
+		position:center;
+		left:0px;
+		bottom:0px;
+		height:60px;
+		width:100%;
+		
+	}		
+	
+	p 
+	{	
+		text-align: center;
+		font-size: x-small;
+		/*color: white; */
+	}
+	

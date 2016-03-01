@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+	<!-- Bootstrap -->
+    <link href="css/utility.css" rel="stylesheet">  
+    <link href="css/style.css" rel="stylesheet">  
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link href="css/datepicker.css" rel="stylesheet">
+	
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
+    <!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  
+	<script src="scripts/bootstrap-datepicker.js"></script>  
+    
+  </head>
+  <body>   
+      <div class="wrapper-admin"> 
+        <!-- Top Header -->
+        <div class="div-head">
+            <label class="user-name">Nikki Del Rosario</label>
+            <a href="#">Logout</a>
+        </div>
+        <!-- Header -->
+        <div class="header">
+            <img src="images/LogiIcon.jpeg">
+            <strong> Inventory </strong>
+			
+        </div>
+		
+		
+		<!-- Main Body -->
+        <div class="main-body">
+			<div class="sidenav">
+				<label> Admin </label>
+					<ul>
+					<li><a href="main-page.html">Users</a></li>
+					<li><a href="list-products.html">Product</a></li>
+					<li><a href="list-outlets.html">Outlet</a></li>
+					<li class="active"><a href="#">Inventory</a></li>
+					<li><a href="">Reports</a></li>
+					
+					</ul>
+ 
+            
+			</div>
+
+        <div class="main-body-2">
+			<div class="body-inventory">
+				<ul>
+					<li>
+						<label> Date From </label>:<input type="text" id="startDate-dp" />
+						<label> Date To </label>:<input type="text" id="endDate-dp" />
+					</li>
+					
+					
+					<script type="text/javascript">
+						$(function()
+						{
+						
+							var startDate = new Date ();
+							var endDate = new Date ();
+							
+							$('#startDate-dp').datepicker()
+									.on('changeDate', function(ev)
+									{
+										$('#startDate-dp').datepicker('hide');
+									});
+									
+							$('#endDate-dp').datepicker()
+									.on('changeDate', function(ev)
+									{
+										
+										$('#endDate-dp').datepicker('hide');
+									});		
+							
+							
+						});
+								
+								
+								
+								
+						
+					</script>
+					
+					<li>
+						<label> Outlet </label>:<select>
+										<option> </option>
+										<option> Citimart - Baystar </option>
+										<option> Carlos Superdrug </option>
+										<option> Shopwise - Alabang </option>
+										<option> Shopwise - Eastwood </option>
+				
+					</li>
+				</ul>
+			 
+			 
+			</div>
+			
+			<div class="inventory-body">
+				<ul>
+					
+					
+					
+					
+					
+					
+					
+				</ul>
+			</div>
+        </div>
+      </div>
+
+  </body>
+</html>
