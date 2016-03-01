@@ -31,8 +31,8 @@
 					<li><a href="${pageContext.request.contextPath}/ims-user">Users</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-outlet">Outlet</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-product">Product</a></li>
-					<li><a href="">Inventory</a></li>
-					<li><a href="">Reports</a></li>
+					<li><a href="${pageContext.request.contextPath}/ims-inventory">Inventory</a></li>
+					<li><a href="${pageContext.request.contextPath}/ims-report">Reports</a></li>
 					
 					
 					

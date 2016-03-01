@@ -1,50 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
     <div class="search-options">
 		<input type="text" class="field">
 		<input type="button" value="Search" class="search-btn button">
-		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-outlet/new'">
+		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-inventory/new'">
 	</div>
+	<ul>
+		<div class="select-inventory" >
+			<li><label><strong> Inventory Type </strong></label> :<select
+				id="type" onchange="checkValue(this.value)">
+					<option>Daily</option>
+					<option>Weekly</option>
+			</select></li>
+
+			<li id="weekly" style='display: none'><label><strong>
+				From : </strong></label> <input id="startPeriod" type="date" /> &nbsp &nbsp <label><strong>
+				To : </strong></label> <input id="endPeriod" type="date" />
+			</li>
+			<li id="daily"><label><strong> 
+				Today : </strong></label> <input id="dailyPeriod" type="date" /></li>
+
+			<li><label><strong> Client </strong></label>: 
+				<select id="selectClient" >
+				<option value="">--SELECT--
+					</option>
+					<c:forEach items="${clients}" var="clientObj">
+						<option value="${clientObj.id}">${clientObj.name}</option>
+					</c:forEach> </select></li>
+
+		</div>
+	</ul>
 	
-	<table class="outlet-list">
+	<table class="user-list">
 	  <tr class="trhead">
-		<td> Outlet Name </td>
+		<td> User Type </td>
+	    <td> Name </td>
+	    <td> Username  </td>
+	    <td> Password  </td>
 	    <td> Contact Number </td>
-		<td> Outlet Address </td>
-	    <td> City </td>
-		<td> Postal Code </td>
 	    
 	  </tr>
 	  
-		<c:forEach var="outlet" items="${imsOutletList}">
+		<c:forEach var="inventory" items="${imsInventoryList}">
 			
 			<tr class="link"> 			
-			
-				<td>	
-					<c:out value="${outlet.name}" />	
+				<td>Employee</td>
+				
+<%-- 				<td>	
+					<c:out value="${user.lastname} , ${user.firstname} , ${user.middlename}" />	
 					
 					<div class="hidden view-url">
-						<c:url value="/ims-outlet/view/${outlet.id}" />
-					
+						<c:url value="/ims-user/view/${user.id}" />
 					</div>
+				</td> --%>
+				
+				<td>	
+					<c:out value="${inventory.period}" />	
 				</td>
 				
 				<td>	
-					<c:out value="${outlet.contactNumber}"		/>
+					<c:out value="${inventory.type}"		/>	
 				</td>
 				
 				<td>	
-					<c:out value="${outlet.address}" />	
-				</td>
-				
-				<td>	
-					<c:out value="${outlet.city}"		/>	
-				</td>
-				
-				<td>	
-					<c:out value="${outlet.postalCode}" />	
+					<c:out value="${inventory.amountOfftake}" />	
 				</td>
 				
 			</tr>
@@ -54,11 +74,18 @@
 	</table>
 
 <script type="text/javascript">
-	$(function() {
-		$(".link").click(function() {
-			var url = $(this).find(".view-url").html();
-			validNavigation = true;
-						window.location = $.trim(url);
-		});
-	});
+function checkValue(val) {
+
+	if (val === "Daily") {
+		$("#startPeriod").val("");
+		$("#endPeriod").val("");
+		document.getElementById('daily').style.display = 'block';
+		document.getElementById('weekly').style.display = 'none';
+	} else {
+		$("#dailyPeriod").val("");
+		document.getElementById('daily').style.display = 'none';
+		document.getElementById('weekly').style.display = 'block';
+	}
+
+}
 </script>

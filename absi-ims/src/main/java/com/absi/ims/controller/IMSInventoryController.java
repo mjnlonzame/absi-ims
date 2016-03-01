@@ -56,6 +56,15 @@ public class IMSInventoryController {
 	@Autowired 
 	private IMSOutletService imsOutletService;
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public String loadIMSInventories(Model model) {
+		logger.info("Getting all IMS Users");
+		List<IMSClient> clients = imsClientService.getAllIMSClients();
+		model.addAttribute("clients", clients);
+		model.addAttribute("imsInventoryList", imsInventoryService.getAllIMSInventories());
+		return "imsInventoryList";
+	}
+	
 	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String loadIMSInventoryForm(Model model) {

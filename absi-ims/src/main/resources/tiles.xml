@@ -260,6 +260,11 @@
 		<put-attribute name="pageTitle" value="Add Inventory" />
 		<put-attribute name="body" value="/WEB-INF/views/ims-inventory/add-inventory.jsp" />
 	</definition>
+	<definition name="imsInventoryList" extends="base-inventory">
+		<put-attribute name="pageTitle" value="List of Inventories" />		
+		<put-attribute name="leftMenu" value="/WEB-INF/views/commons/left-menu-users.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/ims-inventory/list-inventory.jsp" />
+	</definition>
 			
 	
 	
