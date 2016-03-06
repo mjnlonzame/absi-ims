@@ -47,14 +47,20 @@ public class IMSInventory {
 	private String type;
 	
 	
-	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	//@DateTimeFormat(pattern = "MM-dd-YYYY")
+//	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "inventory_period")
 	private Date period;
 	
 	
-	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	//@DateTimeFormat(pattern = "m-dd-YYYY")
+//	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "start_period")
 	private Date startPeriod;
 	
-	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	//@DateTimeFormat(pattern = "MM-dd-YYYY")
+//	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "end_period")
 	private Date endPeriod;
 	
 	
@@ -147,25 +153,28 @@ public class IMSInventory {
 		return period;
 	}
 	
-	@Column(name = "inventory_period")
+
 	public void setPeriod(Date period) {
-		this.period = new Date(period.getTime());
+		//this.period = new Date(period.getTime());
+		this.period = period;
 	}
 	public Date getStartPeriod() {
 		return startPeriod;
 	}
 	
-	@Column(name = "start_period")
+
 	public void setStartPeriod(Date startPeriod) {
-		this.startPeriod = new Date(startPeriod.getTime());
+		//this.startPeriod = new Date(startPeriod.getTime());
+		this.startPeriod = startPeriod;
 	}
 	public Date getEndPeriod() {
 		return endPeriod;
 	}
 	
-	@Column(name = "end_period")
+	
 	public void setEndPeriod(Date endPeriod) {
-		this.endPeriod = new Date(endPeriod.getTime());
+		//this.endPeriod = new Date(endPeriod.getTime());
+		this.endPeriod =endPeriod;
 	}
 	
 	

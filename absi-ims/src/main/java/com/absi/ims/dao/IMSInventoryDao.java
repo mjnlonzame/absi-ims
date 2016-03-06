@@ -20,10 +20,10 @@ public interface IMSInventoryDao extends CrudRepository<IMSInventory, Long>{
 	@Query("SELECT i FROM IMSInventory i join i.product p where i.period in :periods AND p.id=:productId")
 	List<IMSInventory> retrieveInventoriesByProductId(@Param("productId") Long productId, @Param("periods") List<Date> periods);	
 	
-	@Query("SELECT i FROM IMSInventory i join i.client c where c.id=:clientId AND i.period=:period")
-	IMSInventory retrieveInventory(@Param("clientId") Long clientId, @Param("period") Date period);
+	@Query("SELECT i FROM IMSInventory i join i.client c join i.outlet o where c.id=:clientId AND i.period=:period ORDER BY o.id")
+	List<IMSInventory> retrieveDailyInventories(@Param("clientId") Long clientId, @Param("period") Date period);
 	
-	@Query("SELECT i FROM IMSInventory i join i.client c where c.id=:clientId AND i.startPeriod =:startPeriod AND i.endPeriod =:endPeriod ")
-	List<IMSInventory> retrieveInventories(@Param("clientId") Long clientId,  @Param("startPeriod") Date startPeriod, @Param("endPeriod") Date endPeriod);	
+	@Query("SELECT i FROM IMSInventory i join i.client c join i.outlet o where c.id=:clientId AND i.startPeriod =:startPeriod AND i.endPeriod =:endPeriod ORDER BY o.id")
+	List<IMSInventory> retrieveWeeklyInventories(@Param("clientId") Long clientId,  @Param("startPeriod") Date startPeriod, @Param("endPeriod") Date endPeriod);	
 	
 }

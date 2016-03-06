@@ -80,7 +80,7 @@ public class IMSReportController {
 			e.printStackTrace();
 		}
 		
-		List<IMSInventory> inventories =  imsInventoryService.retrieveInventories(Long.valueOf(clientId), start, end);
+		List<IMSInventory> inventories =  imsInventoryService.retrieveWeeklyInventories(Long.valueOf(clientId), start, end);
         JRDataSource JRdataSource = new JRBeanCollectionDataSource(inventories);
 
         parameterMap.put("datasource", JRdataSource);
@@ -106,11 +106,9 @@ public class IMSReportController {
 			e.printStackTrace();
 		}
 		
-		IMSInventory inventory =  imsInventoryService.retrieveInventory(Long.valueOf(clientId), date);
-		System.out.println("inventory id is " +  inventory.getId() +   "And inventory stock is " + inventory.getPreviousStock() + "      " + inventory.getPeriod());
-        List<IMSInventory> inventories = new ArrayList<>();
-        inventories.add(inventory);
-		
+		List<IMSInventory> inventories = imsInventoryService.retrieveDailyInventories(Long.valueOf(clientId), date);
+		//System.out.println("inventory id is " +  inventory.getId() +   "And inventory stock is " + inventory.getPreviousStock() + "      " + inventory.getPeriod());
+        
         JRDataSource JRdataSource = new JRBeanCollectionDataSource(inventories);
 
         parameterMap.put("datasource", JRdataSource);

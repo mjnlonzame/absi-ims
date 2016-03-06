@@ -20,7 +20,7 @@ public interface IMSInventoryService {
 	
 	List<IMSInventory> retrieveInventoriesByProductId(Long productId,  List<Date> periods);
 	
-	IMSInventory retrieveInventory(Long clientId, Date period);
+	List<IMSInventory> retrieveDailyInventories(Long clientId, Date period);
 	
-	List<IMSInventory> retrieveInventories(Long clientId, Date startPeriod, Date endPeriod);
+	List<IMSInventory> retrieveWeeklyInventories(Long clientId, Date startPeriod, Date endPeriod);
 }

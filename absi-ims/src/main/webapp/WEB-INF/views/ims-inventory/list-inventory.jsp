@@ -1,13 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html lang="en">	
 
-    <div class="search-options">
+<head>
+<title>Inventory ABS Promotions Corporations</title>
+
+<meta name="description" content="Login Page">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/style.css" /> ">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/utility.css" /> ">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" /> ">
+	
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+	
+    <!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>  
+
+
+<script src="<c:url value="/resources/scripts/bootstrap-datepicker.js" />"></script>
+
+</head>
+
+<body>
+	    <div class="search-options">
 		<input type="text" class="field">
 		<input type="button" value="Search" class="search-btn button">
 		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-inventory/new'">
 	</div>
 	<ul>
-		<div class="select-inventory" >
+		<div class="select-inventory" onchange="retrieveInventories()">
 			<li><label><strong> Inventory Type </strong></label> :<select
 				id="type" onchange="checkValue(this.value)">
 					<option>Daily</option>
@@ -15,46 +42,40 @@
 			</select></li>
 
 			<li id="weekly" style='display: none'><label><strong>
-				From : </strong></label> <input id="startPeriod" type="date" /> &nbsp &nbsp <label><strong>
-				To : </strong></label> <input id="endPeriod" type="date" />
+				From : </strong></label> <input id="startPeriod" type="text" name="startPeriod" /> &nbsp &nbsp <label><strong>
+				To : </strong></label> <input id="endPeriod" type="text"  name="endPeriod"/>
 			</li>
 			<li id="daily"><label><strong> 
-				Today : </strong></label> <input id="dailyPeriod" type="date" /></li>
+				Today : </strong></label> <input id="dailyPeriod" type="text" name="dailyPeriod"/></li>
 
 			<li><label><strong> Client </strong></label>: 
-				<select id="selectClient" >
-				<option value="">--SELECT--
-					</option>
+				<select id="selectClient">
+					<option value="">--SELECT--</option>
 					<c:forEach items="${clients}" var="clientObj">
 						<option value="${clientObj.id}">${clientObj.name}</option>
-					</c:forEach> </select></li>
+					</c:forEach> 
+				</select>
+			</li>
 
 		</div>
 	</ul>
 	
-	<table class="user-list">
-	  <tr class="trhead">
-		<td> User Type </td>
-	    <td> Name </td>
-	    <td> Username  </td>
-	    <td> Password  </td>
-	    <td> Contact Number </td>
-	    
-	  </tr>
-	  
+	<table class="user-list" id="tableGrid">
+		<thead>
+		  <tr class="trhead">
+	
+		    <td> Outlet  </td>
+		    <td> Period  </td>
+		    <td> To be encoded </td>
+		    
+		  </tr>
+		</thead>
+		<tbody>
+		</tbody>
+	 <%--  
 		<c:forEach var="inventory" items="${imsInventoryList}">
-			
-			<tr class="link"> 			
-				<td>Employee</td>
 				
-<%-- 				<td>	
-					<c:out value="${user.lastname} , ${user.firstname} , ${user.middlename}" />	
-					
-					<div class="hidden view-url">
-						<c:url value="/ims-user/view/${user.id}" />
-					</div>
-				</td> --%>
-				
+
 				<td>	
 					<c:out value="${inventory.period}" />	
 				</td>
@@ -69,11 +90,30 @@
 				
 			</tr>
 			
-		</c:forEach>
+		</c:forEach> --%>
 	  
 	</table>
+</body>
+
 
 <script type="text/javascript">
+
+$(function(){			
+	$('#dailyPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+			{	
+				$('#dailyPeriod').datepicker('hide');
+			});
+	$('#startPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+			{	
+				$('#startPeriod').datepicker('hide');
+			});	
+	$('#endPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+			{	
+				$('#endPeriod').datepicker('hide');
+			});	
+});
+
+
 function checkValue(val) {
 
 	if (val === "Daily") {
@@ -88,4 +128,74 @@ function checkValue(val) {
 	}
 
 }
+
+function retrieveInventories(){
+	var clientId = $("#selectClient").val();
+	var type = $("#type").val();
+	
+	if(type === 'Daily'){
+		var period =formatDate( $("#dailyPeriod").val());
+		console.log("period is " + period);
+	 if(period !== "" && clientId !== "" ){
+		 $.post('/absi-ims/ims-inventory/retrieveDaily', {clientId : clientId, period : period} , function(data) {
+			 console.log("date is ", data );
+			 $("#tableGrid tr:gt(0)").remove();
+			 if(data === undefined){
+				 return null;
+			 } 
+		        $.each( data,function(index, inventory) {
+		        	var strPeriod = formatDate(inventory.period);
+		            $('#tableGrid').find('tbody')
+		            .append($('<tr>')
+		                    .append($('<td>').text(inventory.outlet))
+		                    .append($('<td>').text(strPeriod))
+		                    .append($('<td>').text(inventory.products.join(', ')))
+		                    )
+						
+		        });
+		 }, 'json'); 
+	 } 
+
+	}else{
+		var startPeriod =formatDate( $("#startPeriod").val());
+		var endPeriod =formatDate( $("#endPeriod").val());
+		
+		if(startPeriod !== "" && endPeriod !== "" && clientId !== ""){
+			 $.post('/absi-ims/ims-inventory/retrieveWeekly', {clientId : clientId, startPeriod : startPeriod, endPeriod : endPeriod} , function(data) {
+				 console.log("date is ", data );
+				 $("#tableGrid tr:gt(0)").remove();
+				 if(data === undefined){
+					 return null;
+				 } 
+				
+			        $.each(data,function(index, inventory) {
+			        	var startPeriod = formatDate(inventory.period[0]);
+			        	var endPeriod = formatDate(inventory.period[1]);
+			        	
+			            $('#tableGrid').find('tbody')
+			            .append($('<tr>')
+			                    .append($('<td>').text(inventory.outlet))
+			                    .append($('<td>').text(startPeriod + " to " + endPeriod))
+			                    .append($('<td>').text(inventory.products.join(', ')))
+			                    )
+							
+			        });
+			 });
+		}
+	}
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month, day, year].join('-');
+}
+
+
 </script>

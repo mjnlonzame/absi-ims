@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -34,6 +36,8 @@ import com.absi.ims.service.IMSClientService;
 import com.absi.ims.service.IMSInventoryService;
 import com.absi.ims.service.IMSOutletService;
 import com.absi.ims.service.IMSProductService;
+
+import scala.collection.mutable.ArrayLike;
 
 
 
@@ -89,7 +93,7 @@ public class IMSInventoryController {
 	
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveIMSInventory(@Valid @ModelAttribute("imsInventory") IMSInventory imsInventory, BindingResult result, Model model,
+	public String saveIMSInventory(@Valid @ModelAttribute("imsInventory") IMSInventory imsInventory, Model model, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 		IMSClient client = imsClientService.getIMSClientById(imsInventory.getClient().getId());
 		IMSOutlet outlet = imsOutletService.getIMSOutletById(imsInventory.getOutlet().getId());
@@ -147,11 +151,116 @@ public class IMSInventoryController {
 		return new ResponseEntity<List<IMSInventory>>(inventories, HttpStatus.OK);
 	}
 	
+	public List<Map<String, Object>> generateCheckList(List<IMSInventory> inventories){
+		if(inventories.size() == 0){
+			return null;
+		}
+		List<Map<String, Object>> inventoryCheckList = new ArrayList<>();
+		String currentOutlet = inventories.get(0).getOutlet().getName();
+		List<String> encodedProducts = new ArrayList<>();
+		
+		for(int index = 0; index < inventories.size(); index++){
+			IMSInventory inv = inventories.get(index);
+			if(!currentOutlet.equals(inv.getOutlet().getName()) ){
+				Map<String, Object> checklistObj = new HashMap<>();
+				checklistObj.put("outlet", currentOutlet);
+				//map.put("period", inv.getPeriod());
+				checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
+				populatePeriod(checklistObj, inv);
+				inventoryCheckList.add(checklistObj);
+				encodedProducts = new ArrayList<>();
+				encodedProducts.add(inv.getProduct().getName());
+				currentOutlet = inv.getOutlet().getName();
+
+				if(index == inventories.size() - 1){
+					checklistObj = new HashMap<>();
+					checklistObj.put("outlet", currentOutlet);
+					//checklistObj.put("period", inv.getPeriod());
+					populatePeriod(checklistObj, inv);
+					checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
+					inventoryCheckList.add(checklistObj);
+				}		
+			}
+			else {
+				encodedProducts.add(inv.getProduct().getName());
+				if(inventories.size() == 1){
+					Map<String, Object> checklistObj = new HashMap<>();
+					checklistObj.put("outlet", currentOutlet);
+					//checklistObj.put("period", inv.getPeriod());
+					populatePeriod(checklistObj, inv);
+					checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
+					inventoryCheckList.add(checklistObj);
+				}
+			}
+	
+		}
+		return inventoryCheckList;
+	}
+	public Map<String, Object> populatePeriod(Map<String, Object> map, IMSInventory inventory){
+		if(inventory.getType().equals("Daily")){
+			map.put("period", inventory.getPeriod());
+		}else{
+			List<Date> periods = new ArrayList<>();
+			periods.add(inventory.getStartPeriod());
+			periods.add( inventory.getEndPeriod());
+			map.put("period", periods );		
+		}
+		
+		return map;
+	}
+	@RequestMapping(value="/retrieveDaily", method = RequestMethod.POST)
+	public ResponseEntity<List<Map<String,Object>>> retrieveDailyInventories(@RequestParam("clientId") String clientId, @RequestParam("period") String period){
+		System.out.println("period is " + period);
+		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		Date date = new Date();
+		try {
+			date = formatter.parse(period);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+		List<IMSInventory> inventories =  imsInventoryService.retrieveDailyInventories(Long.valueOf(clientId), date);
+		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories);
+		
+		
+		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/retrieveWeekly", method = RequestMethod.POST)
+	public ResponseEntity<List<Map<String,Object>>> retrieveWeeklyInventories(@RequestParam("clientId") String clientId, @RequestParam("startPeriod") String startPeriod,  @RequestParam("endPeriod") String endPeriod){
+		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		Date start = new Date();
+		Date end = new Date();
+		try {
+			start = formatter.parse(startPeriod);
+			end = formatter.parse(endPeriod);
+	
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<IMSInventory> inventories = imsInventoryService.retrieveWeeklyInventories(Long.valueOf(clientId), start, end);
+		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories);
+		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, (inventoryCheckList != null) ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
 	
 
 	private void buildModel(Model model, IMSInventory imsInventory, String action) {
 		model.addAttribute("action", action);
 		model.addAttribute("imsInventory", imsInventory);
+	}
+	
+	public List<String> getNotEncodedProducts(List<String> encodedProducts, Long clientId){
+		List<String> notEncodedProducts = new ArrayList<>();
+		List<IMSProduct> products = imsProductService.retrieveProductByClient(clientId);
+		
+		for(IMSProduct product : products){
+			if(!encodedProducts.contains(product.getName())){
+				notEncodedProducts.add(product.getName());
+			}
+		}
+		return notEncodedProducts;
 	}
 	
 	
@@ -174,6 +283,7 @@ public class IMSInventoryController {
 	public void initBinder(WebDataBinder binder) {
 		DateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		CustomDateEditor formmated = new CustomDateEditor(sdf, true);
+		//sdf.setLenient(false);
 		binder.registerCustomEditor(Date.class, formmated );
 	}
 }

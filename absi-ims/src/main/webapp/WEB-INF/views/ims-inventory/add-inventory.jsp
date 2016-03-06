@@ -19,7 +19,18 @@
 	href="<c:url value="/resources/css/utility.css" /> ">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" /> ">
+<!-- <link rel="stylesheet" type="text/css" -->
+<%-- 	href="<c:url value="/resources/css/bootstrap/datepicker.min.css" /> ">	 --%>
+	
 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+	
+    <!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>  
+
+
+<script src="<c:url value="/resources/scripts/bootstrap-datepicker.js" />"></script>
 
 </head>
 
@@ -35,12 +46,13 @@
 					</li>
  				
 					<li id="weekly" style='display:none'>
-						<label><strong> From : </strong></label><form:input type="date" path="startPeriod"/> &nbsp &nbsp
-						<label><strong> To : </strong></label><form:input type="date" path="endPeriod"/>
+						<label><strong> From : </strong></label><form:input type="text" path="startPeriod" id="startPeriod" name="startPeriod"/> &nbsp &nbsp
+						<label><strong> To : </strong></label><form:input type="text" path="endPeriod" id="endPeriod" name="endPeriod"/>
 					</li>
 					<li id="daily" >
-						<label><strong> Today : </strong></label>
-						<form:input id="dailyPeriod" type="date" path="period" />
+<!-- 						<label><strong> Today : </strong></label> -->
+<%-- 						<form:input id="dailyPeriod" type="date" path="period" /> --%>
+							<label> Today : </label>:<form:input type="text" path="period" id="period-dp" name="datepicker"/>
 					</li>
 
 					<li><label><strong> Outlet </strong></label>:
@@ -118,6 +130,47 @@
 
 
 <script type="text/javascript">
+	
+// $(function()
+// 		{
+		
+// 			var startDate = new Date ();
+// 			var endDate = new Date ();
+			
+// 			$('#startDate-dp').datepicker()
+// 					.on('changeDate', function(ev)
+// 					{
+// 						$('#startDate-dp').datepicker('hide');
+// 					});
+					
+// 			$('#endDate-dp').datepicker()
+// 					.on('changeDate', function(ev)
+// 					{
+						
+// 						$('#endDate-dp').datepicker('hide');
+// 					});		
+			
+			
+// 		});
+		
+		
+$(function(){			
+			$('#period-dp').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+					{	
+						$('#period-dp').datepicker('hide');
+					});
+			$('#startPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+					{	
+						$('#startPeriod').datepicker('hide');
+					});	
+			$('#endPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
+					{	
+						$('#endPeriod').datepicker('hide');
+					});	
+		});
+		
+		
+		
 var productPrice = 0;
 function checkValue(val) {
 
@@ -135,7 +188,7 @@ function checkValue(val) {
     	$("#warehouseItem").attr("readonly", true);
     	$("#gondolaItem").attr("readonly", true);
     	$("#deliveredItem").attr("readonly", true);
-    	$("#dailyPeriod").val("");
+    	$("#period-dp").val("");
         document.getElementById('daily').style.display='none';
         document.getElementById('weekly').style.display='block';     	
     }
@@ -240,13 +293,15 @@ $("#selectClient").change(function(){
 	 var clientId = $("#selectClient").val();
 	 var productId = $("#selectProduct").val();
 	 var outletId = $("#selectOutlet").val();
-	 var period = new Date($("#dailyPeriod").val());
+	 var strPeriod = $("#period-dp").val();
+	 console.log("period is ", strPeriod);
 		var strStartPeriod = $("#startPeriod").val();
 		var strEndPeriod =$("#endPeriod").val();
 		//console.log(strEndPeriod.toString());
-	if(( clientId !== "" && productId !== "" && outletId !== "") && ( $("#dailyPeriod").val() !=="" || ( $("#startPeriod").val() !=="" &&  $("#endPeriod").val() !==""))) {
+	if(( clientId !== "" && productId !== "" && outletId !== "") && ( $("#period-dp").val() !=="" || ( $("#startPeriod").val() !=="" &&  $("#endPeriod").val() !==""))) {
 		
 		var product;
+		var period = new Date(strPeriod);
 		 $.post('/absi-ims/ims-product/retrieveProduct', {id : productId} , function(data) {
 		 	product = data;
 		 	productPrice = product.price;
@@ -337,12 +392,14 @@ function formatDate(date) {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    return [year, month, day].join('-');
+    return [month, day, year].join('-');
 }
 
 
 function saveNewInventory()
 {
+	console.log("dp period is ", $("#period-dp").val());
+
 	document.getElementById("imsInventory").submit();
 	alert ("Data has been updated");
 }
