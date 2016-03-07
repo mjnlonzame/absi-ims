@@ -65,7 +65,7 @@
 		  <tr class="trhead">
 	
 		    <td> Outlet  </td>
-		    <td> Period  </td>
+<!-- 		    <td> Period  </td> -->
 		    <td> To be encoded </td>
 		    
 		  </tr>
@@ -101,14 +101,17 @@
 $(function(){			
 	$('#dailyPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 			{	
+			retrieveInventories();
 				$('#dailyPeriod').datepicker('hide');
 			});
 	$('#startPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 			{	
+				retrieveInventories();
 				$('#startPeriod').datepicker('hide');
 			});	
 	$('#endPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 			{	
+				retrieveInventories();
 				$('#endPeriod').datepicker('hide');
 			});	
 });
@@ -144,11 +147,11 @@ function retrieveInventories(){
 				 return null;
 			 } 
 		        $.each( data,function(index, inventory) {
-		        	var strPeriod = formatDate(inventory.period);
+		        	//var strPeriod = formatDate(inventory.period);
 		            $('#tableGrid').find('tbody')
 		            .append($('<tr>')
 		                    .append($('<td>').text(inventory.outlet))
-		                    .append($('<td>').text(strPeriod))
+		                   // .append($('<td>').text(strPeriod))
 		                    .append($('<td>').text(inventory.products.join(', ')))
 		                    )
 						
@@ -169,13 +172,12 @@ function retrieveInventories(){
 				 } 
 				
 			        $.each(data,function(index, inventory) {
-			        	var startPeriod = formatDate(inventory.period[0]);
-			        	var endPeriod = formatDate(inventory.period[1]);
-			        	
+// 			        	var startPeriod = formatDate(inventory.period[0]);
+// 			        	var endPeriod = formatDate(inventory.period[1]);			        	
 			            $('#tableGrid').find('tbody')
 			            .append($('<tr>')
 			                    .append($('<td>').text(inventory.outlet))
-			                    .append($('<td>').text(startPeriod + " to " + endPeriod))
+			                    //.append($('<td>').text(startPeriod + " to " + endPeriod))
 			                    .append($('<td>').text(inventory.products.join(', ')))
 			                    )
 							

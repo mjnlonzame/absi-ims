@@ -46,14 +46,14 @@ public class IMSInventoryServiceImpl implements IMSInventoryService{
 	}
 
 	@Override
-	public IMSInventory retrieveInventoryByProductId(Long productId, Date period) {
-		return imsInventoryDao.retrieveInventoryByProductId(productId, period);
+	public IMSInventory retrieveInventoryByProductId(Long productId, Long outletId, Date period) {
+		return imsInventoryDao.retrieveInventoryByProductId(productId, outletId, period);
 		
 	}
 
 	@Override
-	public List<IMSInventory> retrieveInventoriesByProductId(Long productId, List<Date> periods) {
-		return imsInventoryDao.retrieveInventoriesByProductId(productId, periods);
+	public List<IMSInventory> retrieveInventoriesByProductId(Long productId, Long outletId, List<Date> periods) {
+		return imsInventoryDao.retrieveInventoriesByProductId(productId, outletId, periods);
 	}
 
 	@Override

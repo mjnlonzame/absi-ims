@@ -39,5 +39,10 @@ public class IMSOutletServiceImpl implements IMSOutletService {
 	public void deleteIMSOutlet(IMSOutlet imsOutlet) {
 		imsOutletDao.delete(imsOutlet);
 	}
+
+	@Override
+	public List<IMSOutlet> retrieveOutletByClientId(Long id) {
+		return imsOutletDao.retrieveOutletByClientId(id);
+	}
 	
 }

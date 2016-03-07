@@ -95,13 +95,13 @@
 							</div>
 						
 						
-							<div id="endingInv" class="ending-inventory" onchange="updateEndingInventory()" >
+							<div id="endingInv" class="ending-inventory" onchange="updateEndingInventory();updatebeginningInventory()	" >
 								<strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ENDING INVENTORY </strong>
 								<br>
 
-									<li><label><strong> Shelves : </strong></label><form:input id="shelvesItem" type="text" path="shelvesItem" value="1" readonly="false"/></li>
-									<li><label><strong> Warehouse : </strong></label><form:input id="warehouseItem" type="text" path="warehouseItem" value="1" readonly="false"/></li>	
-									<li><label><strong> Gondola : </strong></label><form:input id="gondolaItem" type="text" path="gondolaItem" value="1" readonly="false"/></li>	
+									<li><label><strong> Shelves : </strong></label><form:input id="shelvesItem" type="text" path="shelvesItem" value="0" readonly="false"/></li>
+									<li><label><strong> Warehouse : </strong></label><form:input id="warehouseItem" type="text" path="warehouseItem" value="0" readonly="false"/></li>	
+									<li><label><strong> Gondola : </strong></label><form:input id="gondolaItem" type="text" path="gondolaItem" value="0" readonly="false"/></li>	
 									
 									<div class="TOTAL">
 										<li><label><strong> TOTAL :  </strong></label><span id="endingTotal" onchange="computeStockOfftake()">0 </span> pcs</li>
@@ -131,40 +131,22 @@
 
 <script type="text/javascript">
 	
-// $(function()
-// 		{
-		
-// 			var startDate = new Date ();
-// 			var endDate = new Date ();
-			
-// 			$('#startDate-dp').datepicker()
-// 					.on('changeDate', function(ev)
-// 					{
-// 						$('#startDate-dp').datepicker('hide');
-// 					});
-					
-// 			$('#endDate-dp').datepicker()
-// 					.on('changeDate', function(ev)
-// 					{
-						
-// 						$('#endDate-dp').datepicker('hide');
-// 					});		
-			
-			
-// 		});
 		
 		
 $(function(){			
 			$('#period-dp').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 					{	
+						getInventory();
 						$('#period-dp').datepicker('hide');
 					});
 			$('#startPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 					{	
+						getInventory();
 						$('#startPeriod').datepicker('hide');
 					});	
 			$('#endPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 					{	
+						getInventory();
 						$('#endPeriod').datepicker('hide');
 					});	
 		});
@@ -219,6 +201,16 @@ function updateEndingInventory(){
 	console.log("total is " + total);	
 	$("#endingTotal").text(total);
 	
+
+	var endingInventory = parseInt($("#endingTotal").text());
+	var beginningInventory = parseInt($("#beginningTotal").text());
+	
+	computeTotalComputation();
+
+}
+
+
+function computeTotalComputation(){
 	var endingInventory = parseInt($("#endingTotal").text());
 	var beginningInventory = parseInt($("#beginningTotal").text());
 	
@@ -233,8 +225,8 @@ function updateEndingInventory(){
 		$("#amountOfftake").val(totalAmountOfftake);
 		
 	}
-
 }
+
 
 function updatebeginningInventory(){
 	var previousStock = parseInt($("#previousStock").val());
@@ -243,6 +235,7 @@ function updatebeginningInventory(){
 	var total = deliveredItem + previousStock;
 	
 	$("#beginningTotal").text(total);
+	computeTotalComputation();
 }
 
 
@@ -311,7 +304,7 @@ $("#selectClient").change(function(){
 			
 			period.setDate(period.getDate()-1);
 			var strPeriod = formatDate(period);	
-			 $.post('/absi-ims/ims-inventory/retrievePrevious', {productId : productId, period : strPeriod} , function(data) {
+			 $.post('/absi-ims/ims-inventory/retrievePrevious', {productId : productId, outletId: outletId,  period : strPeriod} , function(data) {
 				 	console.log(data);
 				 	$("#previousStock").val(data.stockOfftake);
 				 	$("#outOfStockDay").val(data.outOfStockDay);
@@ -336,9 +329,8 @@ $("#selectClient").change(function(){
 				console.log(strStartPeriod)
 			}
 		
-			 $.post('/absi-ims/ims-inventory/retrieveInventories', {productId : productId, periods : periods} , function(data) {
-				 	console.log(data);
-				 	
+			 $.post('/absi-ims/ims-inventory/retrieveInventories', {productId : productId, outletId: outletId, periods : periods} , function(data) {
+				 	console.log(data);		 	
 				 	inventories = data;
 				 	computeWeeklyInventories(inventories);
 				 }, 'json');

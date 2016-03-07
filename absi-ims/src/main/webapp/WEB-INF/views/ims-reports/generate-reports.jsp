@@ -64,14 +64,14 @@
 		var type = $("#type").val();
 		
 		if(type==="Weekly"){
-			var startPeriod = $("#startPeriod").val();
-			var endPeriod =$("#endPeriod").val();
+			var startPeriod = formatDate( $("#startPeriod").val());
+			var endPeriod =formatDate($("#endPeriod").val());
 			$('#btn-generate-report').click(function() {
 			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/weeklyxls/' + clientId + '/'   + startPeriod +  '/' + endPeriod;
 			
 			});
 		} else {
-			var period = $("#dailyPeriod").val();
+			var period =formatDate($("#dailyPeriod").val());
 			$('#btn-generate-report').click(function() {
 			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/dailyxls/' + clientId + '/'  + period ;
 			
@@ -226,7 +226,7 @@
 		if (day.length < 2)
 			day = '0' + day;
 
-		return [ year, month, day ].join('-');
+		return [month, day, year].join('-');
 	}
 
 	function saveNewInventory() {

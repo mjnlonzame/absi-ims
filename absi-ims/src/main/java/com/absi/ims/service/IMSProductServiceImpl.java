@@ -41,7 +41,7 @@ public class IMSProductServiceImpl implements IMSProductService {
 	}
 
 	@Override
-	public List<IMSProduct> retrieveProductByClient(Long id) {
+	public List<IMSProduct> retrieveProductByClientId(Long id) {
 		return imsProductDao.retrieveProductByClientId(id);
 	}
 	

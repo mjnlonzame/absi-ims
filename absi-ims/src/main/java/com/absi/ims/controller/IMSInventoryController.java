@@ -37,8 +37,6 @@ import com.absi.ims.service.IMSInventoryService;
 import com.absi.ims.service.IMSOutletService;
 import com.absi.ims.service.IMSProductService;
 
-import scala.collection.mutable.ArrayLike;
-
 
 
 @Controller
@@ -109,7 +107,7 @@ public class IMSInventoryController {
 	
 	
 	@RequestMapping(value="/retrievePrevious", method = RequestMethod.POST)
-	public ResponseEntity<IMSInventory> retrievePreviousInventoryByProductId(@RequestParam("productId") String productId, @RequestParam("period") String period){
+	public ResponseEntity<IMSInventory> retrievePreviousInventoryByProductId(@RequestParam("productId") String productId, @RequestParam("outletId") String outletId, @RequestParam("period") String period){
 		System.out.println("period is " + period);
 		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		Date date = new Date();
@@ -120,7 +118,7 @@ public class IMSInventoryController {
 			e.printStackTrace();
 		}
 
-		IMSInventory inventory =  imsInventoryService.retrieveInventoryByProductId(Long.valueOf(productId), date);
+		IMSInventory inventory =  imsInventoryService.retrieveInventoryByProductId(Long.valueOf(productId), Long.valueOf(outletId), date);
 		if(inventory == null){
 			inventory = new IMSInventory();
 			inventory.setOutOfStockDay(new Long(0));
@@ -131,7 +129,7 @@ public class IMSInventoryController {
 	}
 	
 	@RequestMapping(value="/retrieveInventories", method = RequestMethod.POST)
-	public ResponseEntity<List<IMSInventory>> retrieveInventoriesByProductId(@RequestParam("productId") String productId, @RequestParam("periods[]") String[] periods){
+	public ResponseEntity<List<IMSInventory>> retrieveInventoriesByProductId(@RequestParam("productId") String productId, @RequestParam("outletId") String outletId, @RequestParam("periods[]") String[] periods){
 		System.out.println("period is " + periods);	
 		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		Date date = new Date();
@@ -146,28 +144,73 @@ public class IMSInventoryController {
 			e.printStackTrace();
 		}
 
-		List<IMSInventory> inventories =  imsInventoryService.retrieveInventoriesByProductId(Long.valueOf(productId), dates);
+		List<IMSInventory> inventories =  imsInventoryService.retrieveInventoriesByProductId(Long.valueOf(productId),Long.valueOf(outletId), dates);
 		
 		return new ResponseEntity<List<IMSInventory>>(inventories, HttpStatus.OK);
 	}
 	
-	public List<Map<String, Object>> generateCheckList(List<IMSInventory> inventories){
-		if(inventories.size() == 0){
-			return null;
+
+	@RequestMapping(value="/retrieveDaily", method = RequestMethod.POST)
+	public ResponseEntity<List<Map<String,Object>>> retrieveDailyInventories(@RequestParam("clientId") String clientId, @RequestParam("period") String period){
+		System.out.println("period is " + period);
+		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		Date date = new Date();
+		try {
+			date = formatter.parse(period);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
+		
+		
+		List<IMSInventory> inventories =  imsInventoryService.retrieveDailyInventories(Long.valueOf(clientId), date);
+		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories, clientId);
+		
+		
+		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, (inventoryCheckList != null) ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
+
+	
+	@RequestMapping(value="/retrieveWeekly", method = RequestMethod.POST)
+	public ResponseEntity<List<Map<String,Object>>> retrieveWeeklyInventories(@RequestParam("clientId") String clientId, @RequestParam("startPeriod") String startPeriod,  @RequestParam("endPeriod") String endPeriod){
+		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		Date start = new Date();
+		Date end = new Date();
+		try {
+			start = formatter.parse(startPeriod);
+			end = formatter.parse(endPeriod);
+	
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//List<Map<String, Object>> list = new ArrayList<>();
+		List<IMSInventory> inventories = imsInventoryService.retrieveWeeklyInventories(Long.valueOf(clientId), start, end);
+		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories, clientId);
+		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, (inventoryCheckList != null) ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
+	public List<Map<String, Object>> generateCheckList(List<IMSInventory> inventories, String clientId){
 		List<Map<String, Object>> inventoryCheckList = new ArrayList<>();
+		if(inventories.size() == 0){
+			getRemainingOutlets(inventoryCheckList, new ArrayList<String>() , clientId);
+			return inventoryCheckList;
+		}
+		
 		String currentOutlet = inventories.get(0).getOutlet().getName();
 		List<String> encodedProducts = new ArrayList<>();
-		
+		List<String> outletsWithInventories = new ArrayList<>();
+		Map<String, Object>  checklistObj;
 		for(int index = 0; index < inventories.size(); index++){
 			IMSInventory inv = inventories.get(index);
-			if(!currentOutlet.equals(inv.getOutlet().getName()) ){
-				Map<String, Object> checklistObj = new HashMap<>();
+		
+			if(!currentOutlet.equals(inv.getOutlet().getName()) ||  inventories.size() == 1 ){
+				checklistObj = new HashMap<>();
+				
 				checklistObj.put("outlet", currentOutlet);
-				//map.put("period", inv.getPeriod());
 				checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
-				populatePeriod(checklistObj, inv);
 				inventoryCheckList.add(checklistObj);
+				
+				outletsWithInventories.add(currentOutlet);
 				encodedProducts = new ArrayList<>();
 				encodedProducts.add(inv.getProduct().getName());
 				currentOutlet = inv.getOutlet().getName();
@@ -175,25 +218,26 @@ public class IMSInventoryController {
 				if(index == inventories.size() - 1){
 					checklistObj = new HashMap<>();
 					checklistObj.put("outlet", currentOutlet);
-					//checklistObj.put("period", inv.getPeriod());
-					populatePeriod(checklistObj, inv);
 					checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
 					inventoryCheckList.add(checklistObj);
+					outletsWithInventories.add(currentOutlet);
 				}		
 			}
 			else {
 				encodedProducts.add(inv.getProduct().getName());
-				if(inventories.size() == 1){
-					Map<String, Object> checklistObj = new HashMap<>();
+				if(index == (inventories.size() -1) ){ 
+					checklistObj = new HashMap<>();
 					checklistObj.put("outlet", currentOutlet);
-					//checklistObj.put("period", inv.getPeriod());
-					populatePeriod(checklistObj, inv);
 					checklistObj.put("products", getNotEncodedProducts(encodedProducts, inv.getClient().getId()));
 					inventoryCheckList.add(checklistObj);
+					outletsWithInventories.add(currentOutlet);
 				}
 			}
 	
 		}
+		
+		getRemainingOutlets(inventoryCheckList, outletsWithInventories, clientId);
+		
 		return inventoryCheckList;
 	}
 	public Map<String, Object> populatePeriod(Map<String, Object> map, IMSInventory inventory){
@@ -208,52 +252,23 @@ public class IMSInventoryController {
 		
 		return map;
 	}
-	@RequestMapping(value="/retrieveDaily", method = RequestMethod.POST)
-	public ResponseEntity<List<Map<String,Object>>> retrieveDailyInventories(@RequestParam("clientId") String clientId, @RequestParam("period") String period){
-		System.out.println("period is " + period);
-		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-		Date date = new Date();
-		try {
-			date = formatter.parse(period);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	
+	public void getRemainingOutlets(List<Map<String, Object>> checkList, List<String> outletsWithInventories, String clientId){
+		List<IMSOutlet> outlets = imsOutletService.retrieveOutletByClientId(Long.valueOf(clientId));
+		
+		for(IMSOutlet outlet : outlets){
+			if(!outletsWithInventories.contains(outlet.getName())){
+				Map<String, Object> checklistObj = new HashMap<>();
+				checklistObj.put("outlet", outlet.getName());
+				checklistObj.put("products", getNotEncodedProducts(new ArrayList<String>(),Long.valueOf(clientId)));
+				checkList.add(checklistObj);
+			}
 		}
-		
-		
-		List<IMSInventory> inventories =  imsInventoryService.retrieveDailyInventories(Long.valueOf(clientId), date);
-		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories);
-		
-		
-		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="/retrieveWeekly", method = RequestMethod.POST)
-	public ResponseEntity<List<Map<String,Object>>> retrieveWeeklyInventories(@RequestParam("clientId") String clientId, @RequestParam("startPeriod") String startPeriod,  @RequestParam("endPeriod") String endPeriod){
-		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-		Date start = new Date();
-		Date end = new Date();
-		try {
-			start = formatter.parse(startPeriod);
-			end = formatter.parse(endPeriod);
-	
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		List<Map<String, Object>> list = new ArrayList<>();
-		List<IMSInventory> inventories = imsInventoryService.retrieveWeeklyInventories(Long.valueOf(clientId), start, end);
-		List<Map<String, Object>> inventoryCheckList = generateCheckList(inventories);
-		return new ResponseEntity<List<Map<String,Object>>>(inventoryCheckList, (inventoryCheckList != null) ? HttpStatus.OK : HttpStatus.NO_CONTENT);
-	}
-	
-
-	private void buildModel(Model model, IMSInventory imsInventory, String action) {
-		model.addAttribute("action", action);
-		model.addAttribute("imsInventory", imsInventory);
 	}
 	
 	public List<String> getNotEncodedProducts(List<String> encodedProducts, Long clientId){
 		List<String> notEncodedProducts = new ArrayList<>();
-		List<IMSProduct> products = imsProductService.retrieveProductByClient(clientId);
+		List<IMSProduct> products = imsProductService.retrieveProductByClientId(clientId);
 		
 		for(IMSProduct product : products){
 			if(!encodedProducts.contains(product.getName())){
@@ -263,7 +278,10 @@ public class IMSInventoryController {
 		return notEncodedProducts;
 	}
 	
-	
+	private void buildModel(Model model, IMSInventory imsInventory, String action) {
+		model.addAttribute("action", action);
+		model.addAttribute("imsInventory", imsInventory);
+	}
 //	@ModelAttribute("clients")
 //	public List<IMSClient> populateClients(){
 //		return imsClientService.getAllIMSClients();

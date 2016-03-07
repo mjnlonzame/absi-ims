@@ -16,6 +16,6 @@ public interface IMSProductService {
 
 	void deleteIMSProduct(IMSProduct imsProduct);
 	
-	List<IMSProduct> retrieveProductByClient(Long id);
+	List<IMSProduct> retrieveProductByClientId(Long id);
 
 }

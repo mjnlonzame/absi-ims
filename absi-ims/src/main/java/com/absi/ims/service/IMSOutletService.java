@@ -3,6 +3,7 @@ package com.absi.ims.service;
 import java.util.List;
 
 import com.absi.ims.domain.IMSOutlet;
+import com.absi.ims.domain.IMSProduct;
 
 public interface IMSOutletService {
 
@@ -16,4 +17,5 @@ public interface IMSOutletService {
 
 	void deleteIMSOutlet(IMSOutlet imsOutlet);
 
+	List<IMSOutlet> retrieveOutletByClientId(Long id);
 }

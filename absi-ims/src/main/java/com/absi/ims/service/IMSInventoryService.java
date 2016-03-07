@@ -16,9 +16,9 @@ public interface IMSInventoryService {
 
 	void deleteIMSInventory(IMSInventory imsInventory);
 
-	IMSInventory retrieveInventoryByProductId(Long productId,  Date period);
+	IMSInventory retrieveInventoryByProductId(Long productId, Long outletId, Date period);
 	
-	List<IMSInventory> retrieveInventoriesByProductId(Long productId,  List<Date> periods);
+	List<IMSInventory> retrieveInventoriesByProductId(Long productId, Long outletId,  List<Date> periods);
 	
 	List<IMSInventory> retrieveDailyInventories(Long clientId, Date period);
 	

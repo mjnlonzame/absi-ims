@@ -14,11 +14,11 @@ import com.absi.ims.domain.IMSInventory;
 @Transactional
 public interface IMSInventoryDao extends CrudRepository<IMSInventory, Long>{
 
-	@Query("SELECT i FROM IMSInventory i join i.product p where i.period=:period AND p.id=:productId")
-	IMSInventory retrieveInventoryByProductId(@Param("productId") Long productId, @Param("period") Date period);
+	@Query("SELECT i FROM IMSInventory i join i.product p join i.outlet o where i.period=:period AND p.id=:productId AND o.id=:outletId")
+	IMSInventory retrieveInventoryByProductId(@Param("productId") Long productId, @Param("outletId") Long outletId, @Param("period") Date period);
 		
-	@Query("SELECT i FROM IMSInventory i join i.product p where i.period in :periods AND p.id=:productId")
-	List<IMSInventory> retrieveInventoriesByProductId(@Param("productId") Long productId, @Param("periods") List<Date> periods);	
+	@Query("SELECT i FROM IMSInventory i join i.product p join i.outlet o where i.period in :periods AND p.id=:productId AND o.id=:outletId")
+	List<IMSInventory> retrieveInventoriesByProductId(@Param("productId") Long productId, @Param("outletId") Long outletId, @Param("periods") List<Date> periods);	
 	
 	@Query("SELECT i FROM IMSInventory i join i.client c join i.outlet o where c.id=:clientId AND i.period=:period ORDER BY o.id")
 	List<IMSInventory> retrieveDailyInventories(@Param("clientId") Long clientId, @Param("period") Date period);

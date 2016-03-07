@@ -5,21 +5,32 @@
 	<property name="ireport.y" value="0"/>
 	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
 	<queryString>
-		<![CDATA[SELECT * FROM ims.inventory]]>
+		<![CDATA[SELECT * FROM ims.inventory i
+join ims.product p ON  i.product_id = p.id
+join ims.client c on i.client_client_id = c.client_id
+join ims.outlet o on i.outlet_outlet_id = o.outlet_id]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
-	<field name="amountOfftake" class="java.math.BigDecimal"/>
-	<field name="deliveredItem" class="java.lang.Long"/>
-	<field name="endPeriod" class="java.util.Date"/>
-	<field name="gondolaItem" class="java.lang.Long"/>
-	<field name="outOfStockDay" class="java.lang.Long"/>
-	<field name="period" class="java.util.Date"/>
-	<field name="previousStock" class="java.lang.Long"/>
-	<field name="shelvesItem" class="java.lang.Long"/>
-	<field name="startPeriod" class="java.util.Date"/>
-	<field name="stockOfftake" class="java.lang.Long"/>
+	<field name="endPeriod" class="java.sql.Timestamp"/>
+	<field name="period" class="java.sql.Timestamp"/>
+	<field name="startPeriod" class="java.sql.Timestamp"/>
 	<field name="type" class="java.lang.String"/>
+	<field name="product.id" class="java.lang.Long"/>
+	<field name="product.category" class="java.lang.String"/>
+	<field name="product.sku" class="java.lang.String"/>
+	<field name="product.name" class="java.lang.String"/>
+	<field name="product.weight" class="java.math.BigDecimal"/>
+	<field name="product.price" class="java.math.BigDecimal"/>
+	<field name="outOfStockDay" class="java.lang.Long"/>
+	<field name="previousStock" class="java.lang.Long"/>
+	<field name="deliveredItem" class="java.lang.Long"/>
+	<field name="shelvesItem" class="java.lang.Long"/>
 	<field name="warehouseItem" class="java.lang.Long"/>
+	<field name="gondolaItem" class="java.lang.Long"/>
+	<field name="stockOfftake" class="java.lang.Long"/>
+	<field name="amountOfftake" class="java.math.BigDecimal"/>
+	<field name="client.name" class="java.lang.String"/>
+	<field name="outlet.name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -40,96 +51,104 @@
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="105" height="20" uuid="8777d864-4a01-4a3a-9609-e84dec199184"/>
-				<text><![CDATA[previousStock]]></text>
+				<reportElement x="0" y="0" width="96" height="20" uuid="cfb4b34f-0d86-45b7-b09b-e19b92e55ff0"/>
+				<text><![CDATA[product.sku]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="0" width="105" height="20" uuid="6f5c6bcf-eda6-4fbc-b8ec-eb86488eda6c"/>
-				<text><![CDATA[startPeriod]]></text>
+				<reportElement x="96" y="0" width="96" height="20" uuid="314f9cc8-990a-4da2-902c-2df0b5f0c7db"/>
+				<text><![CDATA[product.name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="0" width="105" height="20" uuid="3001fda5-627d-4082-bc26-110fa643688a"/>
-				<text><![CDATA[stockOfftake]]></text>
+				<reportElement x="192" y="0" width="96" height="20" uuid="b0c29a6f-939b-46e4-9f66-78a0bfe20231"/>
+				<text><![CDATA[product.weight]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="315" y="0" width="105" height="20" uuid="3c647f7a-f404-43f6-9552-05ca0d9eda2d"/>
-				<text><![CDATA[endPeriod]]></text>
+				<reportElement x="288" y="0" width="96" height="20" uuid="b25ede39-9828-4aba-8b2b-d0f640dce306"/>
+				<text><![CDATA[product.price]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="0" width="105" height="20" uuid="16ac9a8c-370b-4689-9e5e-2f7fd7a13ff4"/>
-				<text><![CDATA[deliveredItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="525" y="0" width="105" height="20" uuid="d565c08d-e199-46fe-a2a7-af3db77435fd"/>
-				<text><![CDATA[shelvesItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="630" y="0" width="105" height="20" uuid="0957397e-2705-4f7e-b468-429c07e44493"/>
+				<reportElement x="384" y="0" width="96" height="20" uuid="4572b9ed-51bb-41fb-a424-111e0a1fa4f0"/>
 				<text><![CDATA[outOfStockDay]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="735" y="0" width="105" height="20" uuid="13228a19-2569-43f5-952b-2414243e3a87"/>
+				<reportElement x="480" y="0" width="96" height="20" uuid="9c99e07a-7f98-418d-beaf-5597d3f4786b"/>
+				<text><![CDATA[previousStock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="0" width="96" height="20" uuid="dc0fbebe-6374-42b3-aa27-46d8d31cd04a"/>
+				<text><![CDATA[deliveredItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="672" y="0" width="96" height="20" uuid="f5f62d35-5715-4ea3-b677-b952befa1ce7"/>
+				<text><![CDATA[shelvesItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="768" y="0" width="96" height="20" uuid="8abc727d-4ded-4bc6-b32f-ea764d064551"/>
 				<text><![CDATA[warehouseItem]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="840" y="0" width="105" height="20" uuid="b260b48e-5f35-455c-b83b-b89cef18a83d"/>
+				<reportElement x="864" y="0" width="96" height="20" uuid="df59e0cc-e63b-42ce-94b2-f5cab29825d1"/>
 				<text><![CDATA[gondolaItem]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="945" y="0" width="105" height="20" uuid="59c74693-6efd-4d4a-b2a2-3f38e7442a47"/>
-				<text><![CDATA[amountOfftake]]></text>
+				<reportElement x="960" y="0" width="96" height="20" uuid="784994fa-2a32-4982-b4cb-f444ec0eceb0"/>
+				<text><![CDATA[stockOfftake]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1050" y="0" width="105" height="20" uuid="e4af0011-b784-47b6-a50a-3cd7364d5050"/>
-				<text><![CDATA[id]]></text>
+				<reportElement x="1056" y="0" width="96" height="20" uuid="6e6d7efc-e883-49b1-aafc-90b42aa9d6b4"/>
+				<text><![CDATA[amountOfftake]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="0" width="105" height="20" uuid="3e233456-faee-447b-a6ac-0ae71f691885"/>
-				<textFieldExpression><![CDATA[$F{previousStock}]]></textFieldExpression>
-			</textField>
-			<textField pattern="">
-				<reportElement x="105" y="0" width="105" height="20" uuid="a9364e64-341d-4dff-804a-6712f0c7270b"/>
-				<textFieldExpression><![CDATA[$F{startPeriod}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="96" height="20" uuid="05e242d0-e453-479a-9bef-3c3a03655f9e"/>
+				<textFieldExpression><![CDATA[$F{product.sku}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="210" y="0" width="105" height="20" uuid="7174ddd7-fc5f-448d-b8c5-9cf51245a1b3"/>
-				<textFieldExpression><![CDATA[$F{stockOfftake}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement x="315" y="0" width="105" height="20" uuid="d9767733-7ddd-4c7f-b342-c1eed0cc25a3"/>
-				<textFieldExpression><![CDATA[$F{endPeriod}]]></textFieldExpression>
+				<reportElement x="96" y="0" width="96" height="20" uuid="76654178-d212-4984-a691-45425dc469f6"/>
+				<textFieldExpression><![CDATA[$F{product.name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="0" width="105" height="20" uuid="f4c883df-7063-4b22-abc2-821425427109"/>
-				<textFieldExpression><![CDATA[$F{deliveredItem}]]></textFieldExpression>
+				<reportElement x="192" y="0" width="96" height="20" uuid="ced1f0ef-3a6e-41eb-9f68-9837c83d83f0"/>
+				<textFieldExpression><![CDATA[$F{product.weight}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="525" y="0" width="105" height="20" uuid="2470944b-1a0c-4c7c-9ad5-83a79d603c88"/>
-				<textFieldExpression><![CDATA[$F{shelvesItem}]]></textFieldExpression>
+				<reportElement x="288" y="0" width="96" height="20" uuid="a30737a0-c265-4a03-8720-d87da61e17b0"/>
+				<textFieldExpression><![CDATA[$F{product.price}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="630" y="0" width="105" height="20" uuid="e7a5f7c0-cf7c-4ea6-b84d-e99932a3aed7"/>
+				<reportElement x="384" y="0" width="96" height="20" uuid="798b04b6-207f-4a39-921e-491e9c5fa239"/>
 				<textFieldExpression><![CDATA[$F{outOfStockDay}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="735" y="0" width="105" height="20" uuid="5a3a33fb-6cc1-4384-9592-4241d9a014f7"/>
+				<reportElement x="480" y="0" width="96" height="20" uuid="4be56a92-5ec7-4d41-a38b-140fdcb1ac6f"/>
+				<textFieldExpression><![CDATA[$F{previousStock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="576" y="0" width="96" height="20" uuid="51276d6c-d6ba-49ab-b68b-e8b083443cc3"/>
+				<textFieldExpression><![CDATA[$F{deliveredItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="672" y="0" width="96" height="20" uuid="44ca4f60-ef1b-4cba-854c-b044750f601b"/>
+				<textFieldExpression><![CDATA[$F{shelvesItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="768" y="0" width="96" height="20" uuid="70891732-7ca5-46a1-915f-d01cffa2a20c"/>
 				<textFieldExpression><![CDATA[$F{warehouseItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="840" y="0" width="105" height="20" uuid="b2ff2b4c-1e7d-4bad-859c-3f83f52d9e3a"/>
+				<reportElement x="864" y="0" width="96" height="20" uuid="12a0e4d7-15cb-4eb6-ad23-debe56284f4d"/>
 				<textFieldExpression><![CDATA[$F{gondolaItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="945" y="0" width="105" height="20" uuid="65d80f59-318a-4dc6-901d-2e83654e9b58"/>
-				<textFieldExpression><![CDATA[$F{amountOfftake}]]></textFieldExpression>
+				<reportElement x="960" y="0" width="96" height="20" uuid="2f2f0548-351a-40c8-b946-c47bc4091585"/>
+				<textFieldExpression><![CDATA[$F{stockOfftake}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1050" y="0" width="105" height="20" uuid="50b0c0c5-e4c5-44eb-aed8-df31d35c1c8a"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<reportElement x="1056" y="0" width="96" height="20" uuid="616caf94-c776-4fa6-aaf1-8bf8b6c374da"/>
+				<textFieldExpression><![CDATA[$F{amountOfftake}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
