@@ -42,7 +42,7 @@ public class UtilityController {
 	
 	@RequestMapping(value="/filterProduct", method = RequestMethod.POST)
 	public ResponseEntity<List<IMSProduct>> filterProduct(@RequestParam("id") String id){
-		List<IMSProduct> products = imsProductService.retrieveProductByClient(Long.valueOf(id));
+		List<IMSProduct> products = imsProductService.retrieveProductByClientId(Long.valueOf(id));
 		
 		return new ResponseEntity<List<IMSProduct>>(products, HttpStatus.OK);
 	}

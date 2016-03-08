@@ -31,6 +31,61 @@ join ims.outlet o on i.outlet_outlet_id = o.outlet_id]]>
 	<field name="amountOfftake" class="java.math.BigDecimal"/>
 	<field name="client.name" class="java.lang.String"/>
 	<field name="outlet.name" class="java.lang.String"/>
+	<group name="Inventory per outlet" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{outlet.name}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="0" y="14" width="96" height="20" uuid="10fa34ee-52d6-4484-ac7e-0e67c3b3c33f"/>
+					<text><![CDATA[product.sku]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="96" y="14" width="96" height="20" uuid="caa757c5-e209-4d8f-b10d-a4b1f41bac54"/>
+					<text><![CDATA[product.name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="14" width="96" height="20" uuid="daf070ea-4222-47f7-bbf3-5b651d32ebd6"/>
+					<text><![CDATA[product.weight]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="288" y="14" width="96" height="20" uuid="a908f07d-b406-47a6-bb8e-332188243ddc"/>
+					<text><![CDATA[product.price]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="384" y="14" width="96" height="20" uuid="51a3fb40-72f2-45b3-95d0-d730b8a1ce38"/>
+					<text><![CDATA[outOfStockDay]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="480" y="14" width="96" height="20" uuid="d2bdc808-9ded-491f-be91-290346de6806"/>
+					<text><![CDATA[previousStock]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="576" y="14" width="96" height="20" uuid="d9132141-4b61-4544-bb23-bf6bd6146fd5"/>
+					<text><![CDATA[deliveredItem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="672" y="14" width="96" height="20" uuid="2c024702-1bd3-4fe1-a90d-db82782ce61a"/>
+					<text><![CDATA[shelvesItem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="768" y="14" width="96" height="20" uuid="78b68744-0767-4818-8839-154211b15d09"/>
+					<text><![CDATA[warehouseItem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="864" y="14" width="96" height="20" uuid="539f50c6-8760-4ff2-8fb6-d6ca73ffc453"/>
+					<text><![CDATA[gondolaItem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="960" y="14" width="96" height="20" uuid="c08ccf9f-7474-436f-bcfd-15e0e9547e8b"/>
+					<text><![CDATA[stockOfftake]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1056" y="14" width="96" height="20" uuid="51e6f0fa-2060-4631-93a2-376ebe2d350b"/>
+					<text><![CDATA[amountOfftake]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -41,7 +96,7 @@ join ims.outlet o on i.outlet_outlet_id = o.outlet_id]]>
 				<textElement>
 					<font size="25" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Weekly Inventory]]></text>
+				<text><![CDATA[ ABS PROMOTIONS CORPORATION]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -49,105 +104,69 @@ join ims.outlet o on i.outlet_outlet_id = o.outlet_id]]>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="96" height="20" uuid="cfb4b34f-0d86-45b7-b09b-e19b92e55ff0"/>
-				<text><![CDATA[product.sku]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="96" y="0" width="96" height="20" uuid="314f9cc8-990a-4da2-902c-2df0b5f0c7db"/>
-				<text><![CDATA[product.name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="192" y="0" width="96" height="20" uuid="b0c29a6f-939b-46e4-9f66-78a0bfe20231"/>
-				<text><![CDATA[product.weight]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="288" y="0" width="96" height="20" uuid="b25ede39-9828-4aba-8b2b-d0f640dce306"/>
-				<text><![CDATA[product.price]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="384" y="0" width="96" height="20" uuid="4572b9ed-51bb-41fb-a424-111e0a1fa4f0"/>
-				<text><![CDATA[outOfStockDay]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="480" y="0" width="96" height="20" uuid="9c99e07a-7f98-418d-beaf-5597d3f4786b"/>
-				<text><![CDATA[previousStock]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="576" y="0" width="96" height="20" uuid="dc0fbebe-6374-42b3-aa27-46d8d31cd04a"/>
-				<text><![CDATA[deliveredItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="672" y="0" width="96" height="20" uuid="f5f62d35-5715-4ea3-b677-b952befa1ce7"/>
-				<text><![CDATA[shelvesItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="768" y="0" width="96" height="20" uuid="8abc727d-4ded-4bc6-b32f-ea764d064551"/>
-				<text><![CDATA[warehouseItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="864" y="0" width="96" height="20" uuid="df59e0cc-e63b-42ce-94b2-f5cab29825d1"/>
-				<text><![CDATA[gondolaItem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="960" y="0" width="96" height="20" uuid="784994fa-2a32-4982-b4cb-f444ec0eceb0"/>
-				<text><![CDATA[stockOfftake]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1056" y="0" width="96" height="20" uuid="6e6d7efc-e883-49b1-aafc-90b42aa9d6b4"/>
-				<text><![CDATA[amountOfftake]]></text>
-			</staticText>
+		<band height="61">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="418" y="41" width="203" height="20" uuid="5874668a-87f1-437f-8749-303c960648eb"/>
+				<textFieldExpression><![CDATA[$F{outlet.name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="41" width="100" height="20" uuid="3cde42e2-4755-46eb-a6ab-6815cf442937"/>
+				<textFieldExpression><![CDATA[($F{type}.equals("Daily")) ?  $F{period} : $F{startPeriod}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="177" y="41" width="100" height="20" uuid="7296281c-13c5-4e96-8ae6-47f958ab1f7c"/>
+				<textFieldExpression><![CDATA[$F{endPeriod}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="96" height="20" uuid="05e242d0-e453-479a-9bef-3c3a03655f9e"/>
+				<reportElement x="0" y="0" width="96" height="20" uuid="002baa73-8494-4de7-8c3b-bc19c306334e"/>
 				<textFieldExpression><![CDATA[$F{product.sku}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="96" y="0" width="96" height="20" uuid="76654178-d212-4984-a691-45425dc469f6"/>
+				<reportElement x="96" y="0" width="96" height="20" uuid="478a3560-e5d6-43f0-9ca1-d02a5a7c0ad0"/>
 				<textFieldExpression><![CDATA[$F{product.name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="0" width="96" height="20" uuid="ced1f0ef-3a6e-41eb-9f68-9837c83d83f0"/>
+				<reportElement x="192" y="0" width="96" height="20" uuid="5e67fdbf-c678-484c-a504-97dc4c3763ce"/>
 				<textFieldExpression><![CDATA[$F{product.weight}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="0" width="96" height="20" uuid="a30737a0-c265-4a03-8720-d87da61e17b0"/>
+				<reportElement x="288" y="0" width="96" height="20" uuid="81752430-687b-4930-87f7-c76e028316d7"/>
 				<textFieldExpression><![CDATA[$F{product.price}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="384" y="0" width="96" height="20" uuid="798b04b6-207f-4a39-921e-491e9c5fa239"/>
+				<reportElement x="384" y="0" width="96" height="20" uuid="031b33f8-8184-402f-8614-e6e07df581b2"/>
 				<textFieldExpression><![CDATA[$F{outOfStockDay}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="0" width="96" height="20" uuid="4be56a92-5ec7-4d41-a38b-140fdcb1ac6f"/>
+				<reportElement x="480" y="0" width="96" height="20" uuid="34cc658f-2e23-4e8b-8b5b-635adb13f725"/>
 				<textFieldExpression><![CDATA[$F{previousStock}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="576" y="0" width="96" height="20" uuid="51276d6c-d6ba-49ab-b68b-e8b083443cc3"/>
+				<reportElement x="576" y="0" width="96" height="20" uuid="501b1371-6725-46fc-96bd-532b77953b45"/>
 				<textFieldExpression><![CDATA[$F{deliveredItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="672" y="0" width="96" height="20" uuid="44ca4f60-ef1b-4cba-854c-b044750f601b"/>
+				<reportElement x="672" y="0" width="96" height="20" uuid="49d6e5a2-614b-4985-ba76-8d1372f4098c"/>
 				<textFieldExpression><![CDATA[$F{shelvesItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="768" y="0" width="96" height="20" uuid="70891732-7ca5-46a1-915f-d01cffa2a20c"/>
+				<reportElement x="768" y="0" width="96" height="20" uuid="6c827224-118f-4ca8-ae4a-6f4dab277900"/>
 				<textFieldExpression><![CDATA[$F{warehouseItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="864" y="0" width="96" height="20" uuid="12a0e4d7-15cb-4eb6-ad23-debe56284f4d"/>
+				<reportElement x="864" y="0" width="96" height="20" uuid="14a91cbd-f8f4-404c-a592-314a92f119bd"/>
 				<textFieldExpression><![CDATA[$F{gondolaItem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="960" y="0" width="96" height="20" uuid="2f2f0548-351a-40c8-b946-c47bc4091585"/>
+				<reportElement x="960" y="0" width="96" height="20" uuid="3516e132-c573-4752-92c7-f5ad31eed69a"/>
 				<textFieldExpression><![CDATA[$F{stockOfftake}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1056" y="0" width="96" height="20" uuid="616caf94-c776-4fa6-aaf1-8bf8b6c374da"/>
+				<reportElement x="1056" y="0" width="96" height="20" uuid="cc683c38-5970-47f6-9c36-6741afe0f809"/>
 				<textFieldExpression><![CDATA[$F{amountOfftake}]]></textFieldExpression>
 			</textField>
 		</band>
