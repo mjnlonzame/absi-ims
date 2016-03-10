@@ -37,7 +37,7 @@
 	
 	<div id="outlet-top-menu">
 		<input type="button" id="btn-outlet-cancel" value="Cancel" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-outlet'">
-		<input type="button" id="btn-outlet-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-outlet/edit/{id}'"/>
+		<input type="button" id="btn-outlet-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-outlet/edit/${imsOutlet.id}'"/>
 		<input type="button" id="btn-outlet-delete" value="Delete" class="btnHeader button" onclick="deleteDialog()" />	
 		<input type="button" id="btn-outlet-submit" value="Submit" class="btnHeader button" onclick="saveNewOutlet()" />
 	</div>

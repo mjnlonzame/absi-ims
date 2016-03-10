@@ -12,7 +12,7 @@
 					<li><label><strong> Outlet Store </strong></label>:
 						<form:select path="client.id">
 					      <c:forEach items="${clients}" var="outletObj">
-					            <option value="${outletObj.id}" ${outletObj.id == selectedClient ? 'selected="selected"' : ''}>${outletObj.name}</option> 
+					            <option value="${outletObj.id}" ${outletObj.id == selectedClient ? 'selected="selected"' : ""}>${outletObj.name}</option> 
 					        </c:forEach>
 					    </form:select> 
 					</li>

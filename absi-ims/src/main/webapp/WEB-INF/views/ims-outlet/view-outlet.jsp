@@ -20,13 +20,7 @@
 
 <body>
 
-<form:form id="imsOutlet" modelAttribute="imsOutlet" action="${pageContext.servletContext.contextPath}/delete" method="DELETE">
-		
-		<form:hidden path="id"/>
-		<%-- <c:out value="${imsOutlet.id}"/> --%>
-</form:form>			
-
-<div class="form-user">
+		<div class="form-outlet">
 			<ul>
 				<c:out value="${action}"/>
 				
@@ -46,8 +40,7 @@
 				<c:out value="${imsOutlet.postalCode}" /></span></li>
 				
 			</ul>
-		
-	
-</div>
+		</div>	
+
 
 </body>

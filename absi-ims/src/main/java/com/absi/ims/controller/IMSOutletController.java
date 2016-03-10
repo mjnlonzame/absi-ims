@@ -1,5 +1,6 @@
 package com.absi.ims.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -91,10 +92,17 @@ public class IMSOutletController {
 		IMSOutlet imsOutlet = imsOutletService.getIMSOutletById(id);
 
 		logger.info("Loading edit for of IMSOutlet with the following details : " + imsOutlet);
-
+		
 		if (imsOutlet == null) {
 			return "redirect:/ims-outlet";
 		}
+		List<Long> selectedClients = new ArrayList<>();
+		for(IMSClient client : imsOutlet.getClients()){
+			selectedClients.add(client.getId());
+		}
+		model.addAttribute("selectedClients", selectedClients);
+		List<IMSClient> clients = imsClientService.getAllIMSClients();
+		model.addAttribute("clients", clients);
 		buildModel(model, imsOutlet, UPDATE_ACTION);
 
 		return "imsEditOutlet";
@@ -104,12 +112,17 @@ public class IMSOutletController {
 	public String updateIMSOutlet(IMSOutlet imsOutlet) {
 		IMSOutlet imsOutletToUpdate = imsOutletService.getIMSOutletById(imsOutlet.getId());
 
-		imsOutlet.setCreatedBy(imsOutletToUpdate.getCreatedBy());
-		imsOutlet.setCreatedDate(imsOutletToUpdate.getCreatedDate());
-
+/*		imsOutlet.setCreatedBy(imsOutletToUpdate.getCreatedBy());
+		imsOutlet.setCreatedDate(imsOutletToUpdate.getCreatedDate());*/
+/*		List<IMSClient> clients = new ArrayList<>();
+		for(IMSClient client : imsOutlet.getClients()){
+			client = imsClientService.getIMSClientById(client.getId());
+			clients.add(client);
+		}*/
+		//imsOutlet.setClients(imsOutlet.getClients());
 		imsOutletService.updateIMSOutlet(imsOutlet);
 
-		return "redirect:/view/" + imsOutletToUpdate.getId();
+		return "redirect:/ims-outlet/view/" + imsOutletToUpdate.getId();
 	}
 
 	private void buildModel(Model model, IMSOutlet imsoutlet, String action) {

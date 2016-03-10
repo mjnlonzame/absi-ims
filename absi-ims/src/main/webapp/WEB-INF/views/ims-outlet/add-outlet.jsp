@@ -71,6 +71,12 @@
 
 <script type="text/javascript">
 
+$('option').mousedown(function(e) {
+    e.preventDefault();
+    $(this).prop('selected', !$(this).prop('selected'));
+    return false;
+});
+
 function saveNewOutlet()
 {
 	document.getElementById("imsOutlet").submit();
