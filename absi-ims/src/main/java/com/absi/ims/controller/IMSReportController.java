@@ -3,7 +3,6 @@ package com.absi.ims.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +47,7 @@ public class IMSReportController {
 	
 
 	
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
+	@RequestMapping( method = RequestMethod.GET)
 	public String loadReportForm(Model model) {
 
 
