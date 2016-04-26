@@ -305,6 +305,12 @@
 	<definition name="imsReportForm" extends="base-reports">
 		<put-attribute name="pageTitle" value="Generate Report" />
 		<put-attribute name="body" value="/WEB-INF/views/ims-reports/generate-reports.jsp" />
+		<put-attribute name="leftMenu" value="/WEB-INF/views/commons/left-menu-users.jsp" />
+	</definition>
+		<definition name="imsLoginForm" extends="base-reports">
+		<put-attribute name="pageTitle" value="Login Form" />
+		<put-attribute name="body" value="/WEB-INF/views/commons/login.jsp" />
+		<!-- <put-attribute name="leftMenu" value="/WEB-INF/views/commons/left-menu-users.jsp" /> -->
 	</definition>
 			
 	

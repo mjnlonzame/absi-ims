@@ -1,18 +1,18 @@
 package com.absi.ims;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -27,14 +27,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebMvc
-public class WebConfig extends WebMvcConfigurerAdapter  {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
-		registry.addViewController("/").setViewName("redirect:ims-user");
-		registry.addViewController("/ims-outlet").setViewName("outlet");
-		registry.addViewController("/ims-product").setViewName("product");
+//		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/").setViewName("redirect:login");
+//		registry.addViewController("/ims-outlet").setViewName("outlet");
+//		registry.addViewController("/ims-product").setViewName("product");
+//		registry.addViewController("/ims-report").setViewName("report");
 	}
 
 	
@@ -111,13 +112,19 @@ public class WebConfig extends WebMvcConfigurerAdapter  {
 //		return localValidatorFactoryBean;
 //	}
 
-	@Bean
+/*	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setBasename("messages");
 		return messageSource;
-	}
+	}*/
 
+/*	@Override
+	public void onStartup(ServletContext container) throws ServletException {
+		container.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class)
+        .addMappingForUrlPatterns(null, false, "/*");
+	
+	}*/
 
 
 

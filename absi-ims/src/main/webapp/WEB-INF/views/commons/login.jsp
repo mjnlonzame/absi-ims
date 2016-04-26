@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 
 <head>
@@ -20,15 +21,19 @@
     <div class="login-card">
 		<div class="login-card">
 	    		<h1> ABS Inventory </h1> <br>
-	    		<form action="<c:url value="/login" />" method="post">>
-	    			<input type="text" name="user" placeholder="Username">
-	    			<input type="password" name="pass" placeholder="Password">
+	    		<form action="<c:url value="/login" />" method="post">
+	    			<input type="text" name="username" placeholder="Username">
+	    			<input type="password" name="password" placeholder="Password">
+	    			<sec:csrfInput/>
+	    			<c:if test="${param.error != null }">
+	    				<p> Invalid Username and Password!</p>
+	    			</c:if>
 	    			<input type="submit" name="login" class="login login-submit" value="login">
 	    		</form>
 	        
-	    		<div class="login-help">
+<!-- 	    		<div class="login-help">
 	    			<a href="#">Forgot Password</a>
-	    		</div>
+	    		</div> -->
 	    </div>		
 		
 	</div>

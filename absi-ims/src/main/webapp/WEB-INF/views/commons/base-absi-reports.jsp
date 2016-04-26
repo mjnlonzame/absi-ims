@@ -1,7 +1,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 		
 <html>
 <head>
@@ -22,7 +22,10 @@
 	<div class="div-head">
 		<label><c:out value="${role }" /></label> <label class="user-name"><c:out
 				value="${userFullName}" /></label> <a
-			href="${pageContext.request.contextPath}/logout">Logout</a>
+			href="#" id= "logout">Logout</a>
+			<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post">
+				<sec:csrfInput/>
+			</form>
 	</div>
 	
 	<!-- Header -->
@@ -56,6 +59,11 @@
 </html>
 
 <script type="text/javascript">	
-	
+	$(document).ready(function(){
+		$("#logout").click(function(e){
+			//e.preventDefault();
+			$("#logout-form").submit();
+		});
+	});
 
 </script>

@@ -1,6 +1,7 @@
 package com.absi.ims.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,16 +10,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 @Entity
 @Table(name="user")
 @TableGenerator(name="user", initialValue=0, allocationSize=0)
-public class IMSUser extends Auditable implements Serializable {
+public class IMSUser extends Auditable implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = -1206154523801426928L;
 
@@ -73,6 +78,10 @@ public class IMSUser extends Auditable implements Serializable {
 	@Column(name = "postal_code")
 	private String postalCode;
 	
+	@Size(min=1, max=35)
+	@Column(name = "user_type")
+	private String userType;
+	
 	@Version
 	private Long version;
 	
@@ -114,6 +123,16 @@ public class IMSUser extends Auditable implements Serializable {
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
+	}
+	
+	
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 	public String getMiddlename() {
@@ -178,6 +197,36 @@ public class IMSUser extends Auditable implements Serializable {
 
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return AuthorityUtils.createAuthorityList(this.userType);
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	

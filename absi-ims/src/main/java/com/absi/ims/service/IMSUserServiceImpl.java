@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.absi.ims.dao.IMSUserDao;
 import com.absi.ims.domain.IMSUser;
@@ -39,6 +38,11 @@ public class IMSUserServiceImpl implements IMSUserService {
 	@Override
 	public void deleteIMSUser(IMSUser imsUser) {
 		imsUserDao.delete(imsUser);
+	}
+	
+	@Override
+	public IMSUser getIMSUserByUsername(String username) {
+		return imsUserDao.getIMSUserByUsername(username);
 	}
 	
 }

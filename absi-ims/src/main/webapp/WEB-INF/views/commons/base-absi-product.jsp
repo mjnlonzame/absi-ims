@@ -22,7 +22,7 @@
 	<div class="div-head">
 		<label><c:out value="${role }" /></label> <label class="user-name"><c:out
 				value="${userFullName}" /></label> <a
-			href="${pageContext.request.contextPath}/logout">Logout</a>
+			href="/logout">Logout</a>
 	</div>
 	
 	<!-- Header -->

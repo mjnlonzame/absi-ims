@@ -35,6 +35,7 @@
 	</div>
 	<ul>
 		<div class="select-inventory" onchange="retrieveInventories()">
+		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 			<li><label><strong> Inventory Type </strong></label> :<select
 				id="type" onchange="checkValue(this.value)">
 					<option>Daily</option>

@@ -15,5 +15,7 @@ public interface IMSUserService {
 	void updateIMSUser(IMSUser imsUser);
 
 	void deleteIMSUser(IMSUser imsUser);
+	
+	IMSUser getIMSUserByUsername(String username);
 
 }

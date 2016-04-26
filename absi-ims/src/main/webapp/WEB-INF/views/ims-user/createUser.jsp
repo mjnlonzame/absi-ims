@@ -34,16 +34,18 @@
 
 <body>
 
-	<li><label><strong> User Type </strong></label>:<select>
-			<option></option>
-			<option>Admin</option>
-			<option>Encoder</option>
-			<option>Client</option>
-	</select></li>
+
 	
 	<form:form id="imsUser" modelAttribute="imsUser" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-user">
 		
 		<ul>
+			<li><label><strong> User Type </strong></label>:<form:select
+					path="userType">
+					<option></option>
+					<option value="ROLE_ADMIN">Admin</option>
+					<option value="ROLE_ENCODER">Encoder</option>
+					<option value="ROLE_CLIENT">Client</option>
+				</form:select></li>
 			<li><label><strong> Username </strong></label>:<form:input
 					type="text" path="username" /></li>
 			<li><label><strong> Password </strong></label>:<form:input
