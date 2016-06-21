@@ -29,12 +29,12 @@
 
 <body>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-	    <div class="search-options">
+<!-- 	    <div class="search-options"> -->
 	    
-		<input type="text" class="field">
-		<input type="button" value="Search" class="search-btn button">
-		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-inventory/new'">
-	</div>
+<!-- 		<input type="text" class="field"> -->
+<!-- 		<input type="button" value="Search" class="search-btn button"> -->
+<%-- 		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-inventory/new'"> --%>
+<!-- 	</div> -->
 	<ul>
 		<div class="select-inventory" onchange="retrieveInventories()">
 		
@@ -84,7 +84,7 @@
 
 <script type="text/javascript">
 
-$(function(){			
+$(document).ready(function(){			
 	$('#dailyPeriod').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 			{	
 			retrieveInventories();
@@ -115,6 +115,11 @@ function hideButtons(){
 	$("#btnDelete").hide();
 	
 }
+
+$("#btnAdd").on("click", function(){
+	 location.href='${pageContext.request.contextPath}/ims-inventory/new';
+});
+
 
 
 		

@@ -69,30 +69,50 @@
 </body>
 </html>
 
-<!--
-<div id="deleteUserDialog" title="Please Confirm" class="hidden">
-		Are you sure you want to delete this user?
-</div>
+<!-- <div id="deleteUserDialog" title="Please Confirm" class="hidden"> -->
+<!-- 		Are you sure you want to delete this user? -->
+<!-- </div> -->
 
 <script type="text/javascript">
 $(document).ready(function(){
+$(document).ready(function(){
+	hideButtons();
+});
+function hideButtons(){
 
-	$("#btn-user-delete").click(function() {
-		$("#deleteUserDialog").dialog({
-			 modal: true,
-			 buttons: {
-				 Close: function() {
-				 	$(this).dialog( "close" );
-				 },
-				 Submit: function() {
-					$("#imsUser").submit();
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+	$("#btnSubmit").hide();
+}
+
+
+$("#btnSubmit").on('click', function(){
+	saveNewUser();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-user';
+});
+
+
+
+
+// 	$("#btn-user-delete").click(function() {
+// 		$("#deleteUserDialog").dialog({
+// 			 modal: true,
+// 			 buttons: {
+// 				 Close: function() {
+// 				 	$(this).dialog( "close" );
+// 				 },
+// 				 Submit: function() {
+// 					$("#imsUser").submit();
 					 
-				 	$(this).dialog( "close" );
-				 }
-			 }
-		});
-	});
+// 				 	$(this).dialog( "close" );
+// 				 }
+// 			 }
+// 		});
+// 	});
 	
 });
 </script>
--->

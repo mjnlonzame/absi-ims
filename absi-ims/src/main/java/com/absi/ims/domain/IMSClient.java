@@ -41,7 +41,7 @@ public class IMSClient {
 	private String email;
 	
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "outlet_client",  joinColumns = { 
 			@JoinColumn(name = "client_id") }, 

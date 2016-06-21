@@ -51,9 +51,25 @@
 		
 	</ul>
 	
-	<input type="button" id="btn-generate-report" value="Submit" class="btnHeader button" onclick="generateReport()"/>
-	<canvas id="monthlyReport" width="50" height="50"></canvas>
-
+ 	<input type="button" id="btn-generate-report" value="Submit" class="btnHeader button" onclick="generateReport()"/>
+<!-- 	<a class="btn" data-toggle="modal" href="#myModal">View Monthly Sales Graph</a> -->
+<!-- 	<div class="modal hide" id="myModal"> -->
+<!-- 		<!-- note the use of "hide" class -->
+<!-- 		<div class="modal-header"> -->
+<!-- 			<button class="close" data-dismiss="modal">×</button> -->
+<!-- 			<h3>Modal header</h3> -->
+<!-- 		</div> -->
+<!-- 		<div class="modal-body"> -->
+			<canvas id="monthlyReport" width="50" height="50" ></canvas>
+<!-- 		</div> -->
+<!-- 		<div class="modal-footer"> -->
+<!-- 			<a href="#" class="btn" data-dismiss="modal">Close</a> -->
+<!-- 			<!-- note the use of "data-dismiss" -->
+<!-- 			<a href="#" class="btn btn-primary">Save changes</a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+	</br>
+	<input type="button" id="showSales" value="Show/Hide Monthly Sales" class="btn-default button" onclick="showSalesGraph()"/>​
 </body>
 </html>
 
@@ -61,25 +77,49 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		hideButtons();
 		retrieveAllInventories();
+		$("#monthlyReport").hide();
 	});
+	function hideButtons(){
+		$("#btnCancel").hide();
+		$("#btnSubmit").hide();
+		$("#btnEdit").hide();
+		$("#btnDelete").hide();
+		$("#btnAdd").hide();
+	}
+	
+	function showSalesGraph(){
+		$("#monthlyReport").toggle();
+	}
+
 	
 	function retrieveAllInventories(){
 		 $.post('/absi-ims/ims-report/retrieveAllInventories', {} , function(data) {
 				 	console.log(data);		 	
 				 	var inventories = data;
-				 	var totalMonthlyAmountOfftake = [0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0 , 0 , 0 ];
+				 	var totalMonthlySales = [0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0 , 0 , 0 ];
 				 	for(var index in inventories){
 				 		var inventory = inventories[index];
 				 		var inventoryDate = new Date(inventory.period);
 				 		console.log("date is ", inventoryDate);
 				 		var inventoryMonth = inventoryDate.getMonth();
-				 		totalMonthlyAmountOfftake[inventoryMonth] += inventory.amountOfftake;
+				 		var totalSales = computeTotalSales(inventory);
+				 		totalMonthlySales[inventoryMonth] += totalSales;
 				 	}
 				 	
-				 	console.log("totalMonthlyAmountOfftake", totalMonthlyAmountOfftake);
-				 	generateTotalAmountOfftakeGraph(totalMonthlyAmountOfftake);
+				 	console.log("totalMonthlySales", totalMonthlySales);
+				 	generateTotalAmountOfftakeGraph(totalMonthlySales);
 			 }, 'json');
+	}
+	
+	function computeTotalSales(inventory){
+		 var beginning = 0, ending = 0;
+		 
+		 beginning = inventory.previousStock + inventory.deliveredItem;
+		 ending = inventory.gondolaItem + inventory.warehouseItem + inventory.shelvesItem;
+		 
+		 return beginning - ending;
 	}
 	
 	function generateTotalAmountOfftakeGraph(totalMonthlyAmountOfftake){
@@ -90,7 +130,7 @@
 			    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			    datasets: [
 			        {
-			            label: "Monthly amount offtake",
+			            label: "Monthly Sales",
 			            fill: false,
 			            lineTension: 0.1,
 			            backgroundColor: "rgba(75,192,192,0.4)",
@@ -131,17 +171,17 @@
 		if(type==="Weekly"){
 			var startPeriod = formatDate( $("#startPeriod").val());
 			var endPeriod =formatDate($("#endPeriod").val());
-			$('#btn-generate-report').click(function() {
+// 			$('#btn-generate-report').click(function() {
 			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/weeklyxls/' + clientId + '/'   + startPeriod +  '/' + endPeriod;
 			
-			});
+// 			});
 		} else {
 			var period =formatDate($("#dailyPeriod").val());
-			$('#btn-generate-report').click(function() {
+// 			$('#btn-generate-report').click(function() {
 			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/dailyxls/' + clientId + '/'  + period ;
 			
 
-			});
+// 			});
 		}
 
 	}
@@ -161,126 +201,6 @@
 		}
 
 	}
-
-// 	$("#selectOutlet").change(
-// 			function() {
-// 				var outletId = $("#selectOutlet").val();
-
-// 				$.post('/absi-ims/filterClient', {
-// 					id : outletId
-// 				},
-// 						function(data) {
-// 							console.log(data);
-// 							console.log("damn");
-// 							$('#selectClient').find('option').remove().end();
-// 							$('#selectClient').append(
-// 									$("<option>").attr("value", "").text(
-// 											"--SELECT--"));
-// 							$.each(data, function(index, object) {
-// 								console.log("object is " + object);
-// 								$('#selectClient').append(
-// 										$("<option>").attr("value", object.id)
-// 												.attr("name", "dasds").text(
-// 														object.name));
-// 							});
-
-// 						}, 'json');
-
-// 			});
-
-// 	$("#selectClient").change(
-// 			function() {
-// 				clientId = $("#selectClient").val();
-
-// 				/*$.post('/absi-ims/filterProduct', {id : clientId} , function(data) {*/
-// 				$.ajax({
-// 					method : 'POST',
-// 					url : '/absi-ims/filterProduct',
-// 					dataType : 'json',
-// 					data : {
-// 						id : clientId
-// 					}
-// 				}).done(
-// 						function(data) {
-// 							console.log(data);
-// 							console.log("damn");
-// 							$('#selectProduct').find('option').remove().end();
-// 							$('#selectProduct').append(
-// 									$("<option>").attr("value", "").text(
-// 											"--SELECT--"));
-// 							$.each(data, function(index, object) {
-// 								console.log("object is " + object);
-// 								$('#selectProduct').append(
-// 										$("<option>").attr("value", object.id)
-// 												.text(object.name));
-// 							});
-
-// 						}, 'json');
-
-// 			});
-// 	function getInventory() {
-// 		console.log("getting inventory");
-// 		 var clientId = $("#selectClient").val();
-// 		 productId = $("#selectProduct").val();
-// 		 var outletId = $("#selectOutlet").val();
-// 		 period = new Date($("#dailyPeriod").val());
-// 		startPeriod = $("#startPeriod").val();
-// 		endPeriod =$("#endPeriod").val();
-
-// 		if(( clientId !== "" && productId !== "" && outletId !== "") && ( $("#dailyPeriod").val() !=="" || ( $("#startPeriod").val() !=="" &&  $("#endPeriod").val() !==""))) {
-			
-// 			var product;
-// 			 $.post('/absi-ims/ims-product/retrieveProduct', {id : productId} , function(data) {
-// 			 	product = data;
-// 			 	productPrice = product.price;
-// 			 }, 'json');
-			 
-// 			if($("#type").val() === 'Daily' ){
-// 				console.log("DAILLLLY");
-// 				period.setDate(period.getDate()-1);
-//  			 period = formatDate(period);	
-// // 				 $.post('/absi-ims/ims-inventory/retrievePrevious', {productId : productId, period : strPeriod} , function(data) {
-// // 					 	console.log(data);
-// // 					 	$("#previousStock").val(data.stockOffTake);
-// // 					 	$("#outOfStockDay").val(data.outOfStockDay);
-// // 					 	$("#deliveredItem").val("");
-// // 					 }, 'json');
-// 			} else {
-// 				console.log("weeeeeeeekly");
-				
-				
-// // 				var startPeriod = new Date(strStartPeriod);
-// // 				var endPeriod = new Date(strEndPeriod);
-				
-// // 				console.log("start period " + startPeriod);
-// // 				console.log("end period " + endPeriod);
-// // 	 			if(startPeriod > endPeriod){
-// // 					return null;
-// // 				} 
-	 			
-// //  				periods = [];
-
-// // 				periods.push(strStartPeriod);
-// // 				while(strStartPeriod !== strEndPeriod){
-// // 					startPeriod.setDate(startPeriod.getDate() + 1);
-// // 					strStartPeriod = formatDate(startPeriod);	
-// // 					periods.push(strStartPeriod);
-// // 					console.log(strStartPeriod)
-// // 				}
-
-
-// 			}
-		
-
-
-			
-		
-// 		}
-		 
-
-
-// 	};
-
 
 	function formatDate(date) {
 		var d = new Date(date), month = '' + (d.getMonth() + 1), day = ''

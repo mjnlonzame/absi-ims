@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-    <div class="search-options">
-		<input type="text" class="field">
-		<input type="button" value="Search" class="search-btn button">
-		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-product/new'">
-	</div>
+<!--     <div class="search-options"> -->
+<!-- 		<input type="text" class="field"> -->
+<!-- 		<input type="button" value="Search" class="search-btn button"> -->
+<%-- 		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-product/new'"> --%>
+<!-- 	</div> -->
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<table id="productTable" class="product-list">
 	  <thead>
@@ -30,6 +30,9 @@
 		hideButtons();
 		retrieveProducts();
 		
+	});
+	$("#btnAdd").on("click", function(){
+		 location.href='${pageContext.request.contextPath}/ims-product/new';
 	});
 	
 	$("#btnEdit").on("click", function(){

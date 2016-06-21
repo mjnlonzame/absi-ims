@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-    <div class="search-options">
-		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-user/new'">
-	</div>
+<!--     <div class="search-options"> -->
+<%-- 		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-user/new'"> --%>
+<!-- 	</div> -->
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<table id="userTable" class="user-list">
 		
@@ -67,6 +67,9 @@
 		$("#btnSubmit").hide();
 		
 	}
+	$("#btnAdd").on("click", function(){
+		 location.href='${pageContext.request.contextPath}/ims-user/new';
+	});
 	
 	$("#btnDelete").on("click", function(){
 		location.href=  '${pageContext.request.contextPath}/ims-user/delete?usrId=' + oTable.rows('.selected').data()[0].id;

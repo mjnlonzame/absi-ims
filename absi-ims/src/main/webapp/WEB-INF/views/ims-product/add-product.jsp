@@ -23,12 +23,12 @@
 </head>
 
 <body>
-	<div id="product-top-menu">
-		<input type="button" id="btn-product-cancel" value="Cancel" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product'">
-		<input type="button" id="btn-product-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product/edit?productId=${imsProduct.id}'"/>
-		<input type="button" id="btn-product-delete" value="Delete" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product/delete?productId=${imsProduct.id}'" />	
-		<input type="button" id="btn-product-submit" value="Submit" class="btnHeader button" onclick="saveNewProduct()" />
-	</div>
+<!-- 	<div id="product-top-menu"> -->
+<%-- 		<input type="button" id="btn-product-cancel" value="Cancel" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product'"> --%>
+<%-- 		<input type="button" id="btn-product-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product/edit?productId=${imsProduct.id}'"/> --%>
+<%-- 		<input type="button" id="btn-product-delete" value="Delete" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-product/delete?productId=${imsProduct.id}'" />	 --%>
+<!-- 		<input type="button" id="btn-product-submit" value="Submit" class="btnHeader button" onclick="saveNewProduct()" /> -->
+<!-- 	</div> -->
 	<form:form id="imsProduct" modelAttribute="imsProduct" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-product">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 			<ul>
@@ -72,6 +72,24 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	hideButtons();
+});
+$("#btnSubmit").on('click', function(){
+	saveNewProduct();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-product';
+});
+
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
 
 function saveNewProduct()
 {

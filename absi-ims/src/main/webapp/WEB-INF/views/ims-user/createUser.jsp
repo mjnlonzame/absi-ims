@@ -37,7 +37,7 @@
 
 	
 	<form:form id="imsUser" modelAttribute="imsUser" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-user">
-		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<ul>
 			<li><label><strong> User Type </strong></label>:<form:select
 					path="userType">
@@ -84,20 +84,39 @@ function saveNewUser()
 }
 
 
-var $j = jQuery.noConflict();
+$("#btnSubmit").on('click', function(){
+	saveNewUser();
+});
 
-$j(document).ready(function () {
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-user';
+});
+
+
+
+// var $j = jQuery.noConflict();
+
+$(document).ready(function () {
 	
-	$j('#birthDate-dp').datepicker({
+// 	$j('#birthDate-dp').datepicker({
 	
-	locale: {
-		format: "dd/mm/yyyy"
+// 	locale: {
+// 		format: "dd/mm/yyyy"
 	
-			}
-	});  
+// 			}
+// 	});  
+	
+	hideButtons();
 
 });
 
+
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
 
 
 </script>

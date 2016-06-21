@@ -39,6 +39,24 @@
 </form:form>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	hideButtons();
+});
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
+
+$("#btnSubmit").on('click', function(){
+	saveNewProduct();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-product';
+});
 
 function saveNewProduct()
 {

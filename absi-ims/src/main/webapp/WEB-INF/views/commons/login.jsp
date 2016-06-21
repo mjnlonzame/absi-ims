@@ -40,3 +40,21 @@
  
 </body>
 </html>
+<script type="text/javascript">
+
+$(document).ready(function(){	
+	hideButtons();
+});
+
+
+function hideButtons(){
+	$("#btnCancel").hide();
+	$("#btnSubmit").hide();
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+	$("#logoutHeader").hide();
+}
+
+
+</script>

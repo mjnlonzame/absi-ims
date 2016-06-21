@@ -30,8 +30,8 @@
 		
 		<put-list-attribute name="javascripts">
 			<add-attribute value="/resources/js/lib/jquery/1.11.1/jquery.min.js" />
-			<add-attribute value="/resources/js/lib/bootstrap/3.2.0/bootstrap.min.js" />
 			<add-attribute value="/resources/css/jquery-ui/1.11.4/jquery-ui.min.js" />
+			<add-attribute value="/resources/js/lib/bootstrap/3.2.0/bootstrap.min.js" />
 			<add-attribute value="/resources/js/lib/underscore/1.8.3/underscore-min.js" />
 			<add-attribute value="/resources/scripts/bootstrap-datepicker.js" />
 			<add-attribute value="/resources/js/lib/datatable/jquery.dataTables.min.js" />

@@ -1,5 +1,7 @@
 package com.absi.ims;
 
+import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -24,6 +28,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 
 @Configuration
 @EnableWebMvc
@@ -126,6 +131,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	}*/
 
+	public MappingJackson2HttpMessageConverter jacksonMessageConverter(){
+	    MappingJackson2HttpMessageConverter messageConverter = new  MappingJackson2HttpMessageConverter();
+
+	    ObjectMapper mapper = new ObjectMapper();
+	    //Registering Hibernate4Module to support lazy objects
+	    mapper.registerModule(new Hibernate4Module());
+
+	    messageConverter.setObjectMapper(mapper);
+	    return messageConverter;
+
+	}
+
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	    //Here we add our custom-configured HttpMessageConverter
+	    converters.add(jacksonMessageConverter());
+	    super.configureMessageConverters(converters);
+	}
 
 
 

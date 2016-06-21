@@ -12,7 +12,13 @@
 		</div> --%>
 		
 		<ul>
-					
+				<li><label><strong> User Type </strong></label>:<form:select
+					path="userType">
+					<option></option>
+					<option value="ROLE_ADMIN">Admin</option>
+					<option value="ROLE_ENCODER">Encoder</option>
+					<option value="ROLE_CLIENT">Client</option>
+				</form:select></li>	
 				<li><label><strong> Username </strong></label>:<form:input
 						type="text" path="username" /></li>
 				<li><label><strong> Password </strong></label>:<form:input
@@ -46,6 +52,25 @@
 </form:form>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	hideButtons();
+});
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
+
+$("#btnSubmit").on('click', function(){
+	saveNewUser();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-user';
+});
+
 
 function saveNewUser()
 {

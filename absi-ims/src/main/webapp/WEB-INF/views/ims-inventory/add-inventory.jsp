@@ -115,20 +115,9 @@
 
 <script type="text/javascript">
 	
-// (function () {
-// 	console.log("wew");
-//     var token = $("input[name='_csrf']").val();
-//     console.log("tokem is ", token);
-//     var header = "X-CSRF-TOKEN";
-//     $(document).ajaxSend(function(e, xhr, options) {
-//         xhr.setRequestHeader(header, token);
-//     });
-// });
-// $(document).ready(function(){
-// 	setCsrfTokeToAjax();
-// });
 		
-$(function(){			
+$(function(){		
+	hideButtons();
 			$('#period-dp').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)
 					{	
 						getInventory();
@@ -147,6 +136,20 @@ $(function(){
 		});
 		
 		
+		
+$("#btnSubmit").on('click', function(){
+	saveNewInventory();
+});
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-inventory';
+});
+
+function hideButtons(){
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
 		
 var productPrice = 0;
 function checkValue(val) {

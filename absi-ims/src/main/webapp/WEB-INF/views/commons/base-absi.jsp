@@ -1,4 +1,4 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+\<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -32,12 +32,12 @@
 <%-- 				value="${userFullName}" /></label> <a --%>
 <!-- 			href="/logout">Logouttt</a> -->
 <!-- 	</div> -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+	<div class="div-head" id="logoutHeader">
 
-	<div class="div-head">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<label><c:out value="${role }" /></label> <label class="user-name"><c:out
 				value="${userFullName}" /></label> <a
-			href="#" id= "logout">Logouttt</a>
+			href="/absi-ims/login" id= "logout">Logout</a>
 			<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post">
 				<sec:csrfInput/>
 			</form>
@@ -53,27 +53,21 @@
 				
 	</div>
 	
-<!-- 	<div class="user-top-menu"> -->
-<%-- 		<input type="button" id="btn-user-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user/edit?usrId=${imsUser.id}'"/>	 --%>
-<%-- 		<input type="button" id="btn-user-delete" value="Delete" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user/delete?usrId=${imsUser.id}'"/>	 --%>
-<%-- 		<input type="button" id="btn-user-cancel" value="Cancel" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user'" /> --%>
-<!-- 		<input type="button" id="btn-user-submit" value="Submit" class="btnHeader button" onclick="saveNewUser()" /> -->
-	
-<!-- 	</div> -->
-	
-	
+
 		<div class="user-top-menu">
-		
-	
-		<input type="button" id="btnDelete" value="Delete" class="btnHeader button"/>	
-		<input type="button" id="btnEdit" value="Edit" class="btnHeader button"/>
-		<input type="button" id="btnAdd" value="Add" class="btnHeader button">
-		<input type="button" id="btnCancel" value="Cancel" class="btnHeader button"/>
-		<input type="button" id="btnSubmit" value="Submit" class="btnHeader button"  />
-		
-	
-	</div>
-	<div class="main-body">
+
+
+			<input type="button" id="btnDelete" value="Delete"
+				class="btnHeader button" /> <input type="button" id="btnEdit"
+				value="Edit" class="btnHeader button" /> <input type="button"
+				id="btnAdd" value="Add" class="btnHeader button"> <input
+				type="button" id="btnCancel" value="Cancel" class="btnHeader button" />
+			<input type="button" id="btnSubmit" value="Submit"
+				class="btnHeader button" />
+
+
+		</div>
+		<div class="main-body">
 		<tiles:insertAttribute name="leftMenu" />
 		
 		<div class="main-body-2">
@@ -88,5 +82,12 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+// 	$("#logout").click(function(e){
+// // 		$("#logout-form").submit();
+// 		location.href='${pageContext.request.contextPath}/login';
+// 	});
+// 	location.href='${pageContext.request.contextPath}/login';
 
+});
 </script

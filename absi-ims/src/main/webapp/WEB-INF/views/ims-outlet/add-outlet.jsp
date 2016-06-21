@@ -76,6 +76,9 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	hideButtons();
+});
 
 $('option').mousedown(function(e) {
     e.preventDefault();
@@ -86,6 +89,14 @@ $('option').mousedown(function(e) {
 $("#btnSubmit").on('click', function(){
 	saveNewOutlet();
 });
+
+function hideButtons(){
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
+
 
 $("#btnCancel").on('click', function(){
 	location.href='${pageContext.request.contextPath}/ims-outlet';

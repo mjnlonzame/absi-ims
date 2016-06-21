@@ -47,6 +47,25 @@ $('option').mousedown(function(e) {
     return false;
 });
 
+$(document).ready(function(){
+	hideButtons();
+});
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+}
+
+
+$("#btnSubmit").on('click', function(){
+	saveNewOutlet();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-outlet';
+});
+
 function saveNewOutlet()
 {
 	document.getElementById("imsOutlet").submit();

@@ -7,6 +7,12 @@ $(document).ready(function(){
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
+	console.log("heeo");
+	$("#logout").click(function(e){
+		//e.preventDefault();
+		console.log("hehehe");
+		$("#logout-form").submit();
+	});
 });
 
 

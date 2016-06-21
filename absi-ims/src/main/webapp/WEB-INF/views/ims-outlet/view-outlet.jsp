@@ -45,3 +45,22 @@
 
 
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	hideButtons();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-outlet';
+});
+
+function hideButtons(){
+
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	$("#btnAdd").hide();
+	$("#btnSubmit").hide();
+}
+
+
+</script>
