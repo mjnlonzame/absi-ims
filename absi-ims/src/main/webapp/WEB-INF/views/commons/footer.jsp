@@ -9,10 +9,10 @@
 	<link rel="icon" href="<c:url value="/resources/images/LogiIcon.jpeg"/>
 	
 	
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/main.css" /> 
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" /> 
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap/bootstrap-theme.min.css" /> 
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font-awesome-4.4.0/css/font-awesome.min.css" />
+<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/main.css" />  --%>
+<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" />  --%>
+<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap/bootstrap-theme.min.css" />  --%>
+<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font-awesome-4.4.0/css/font-awesome.min.css" /> --%>
 	
 </head>
 

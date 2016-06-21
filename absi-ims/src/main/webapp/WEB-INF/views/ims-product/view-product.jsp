@@ -27,6 +27,7 @@
 </form:form>			
 
 <div class="form-user">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 				<ul>
 					<li><label><strong> Supplier       :</strong></label><span><c:out value="${imsProduct.client.name}"/></span></li>	
 <%--                     <li><label><strong> Supplier           : </strong></label><span><c:out value="${imsProduct.clientId}"/></span></li> --%>

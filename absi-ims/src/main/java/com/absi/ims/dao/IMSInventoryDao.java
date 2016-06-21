@@ -26,4 +26,8 @@ public interface IMSInventoryDao extends CrudRepository<IMSInventory, Long>{
 	@Query("SELECT i FROM IMSInventory i join i.client c join i.outlet o where c.id=:clientId AND i.startPeriod =:startPeriod AND i.endPeriod =:endPeriod ORDER BY o.id")
 	List<IMSInventory> retrieveWeeklyInventories(@Param("clientId") Long clientId,  @Param("startPeriod") Date startPeriod, @Param("endPeriod") Date endPeriod);	
 	
+	@Query("SELECT i FROM IMSInventory i join i.client join i.outlet join i.product where i.period >=  '2016-01-01 00:00:00' AND i.period < '2017-01-01 00:00:00'")
+	List<IMSInventory> retrieveAllInventories();
+//	SELECT * FROM ims.inventory WHERE inventory_type = 'Daily' AND  inventory_period >=  '2016-01-01 00:00:00' AND inventory_period < '2017-01-01 00:00:00'
+	
 }

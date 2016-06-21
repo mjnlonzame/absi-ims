@@ -18,8 +18,9 @@
 	
 	<context:component-scan base-package="com.absi.ims.security"></context:component-scan>
 	
-<!-- 	<security:http pattern="/resources/*" security="none" /> -->
-<!-- <security:http pattern="/resources/*" security="none" /> -->
+<!-- 	<security:http pattern="/login/*" security="none" /> -->
+<!-- 	<security:http pattern="/resources/**" security="none" /> -->
+<!-- <security:http pattern="src/main/resources/*" security="none" /> -->
 <!-- <security:http pattern="/WEB-INF/*" security="none" />  -->
 
 
@@ -29,20 +30,24 @@
 	password-parameter="password" default-target-url="/ims-inventory/" 
 	authentication-failure-url="/login?error=true"/>
 		<security:logout logout-url="/logout" logout-success-url="/login?logout=true"/>
+		<security:intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 <!--  	<security:intercept-url pattern="/resources/**" access="permitAll" /> -->
-		<security:intercept-url pattern="/ims-outlet/*" access="ROLE_ADMIN"/>
-		<security:intercept-url pattern="/ims-inventory/*" access="ROLE_ENCODER, ROLE_ADMIN, ROLE_CLIENT"/>
-		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/ims-outlet/**" access="ROLE_ADMIN"/>
+<!-- 		<security:intercept-url pattern="/login" access="ROLE_ENCODER, ROLE_ADMIN, ROLE_CLIENT"/> -->
+		<security:intercept-url pattern="/ims-inventory/**" access="ROLE_ENCODER, ROLE_ADMIN, ROLE_CLIENT"/>
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
+<!-- 		<security:intercept-url pattern="/login/**" access="ROLE_ANONYMOUS"/> -->
 		
 	</security:http>
 	
 	<security:authentication-manager>
-		<security:authentication-provider ref="customAuthenticationProvider"> 
-<!-- 		<security:authentication-provider user-service-ref="customerUserDetailsService">  -->
-<!-- 			<security:user-service>
-				<security:user name="user" password="password" authorities="ROLE_USER"/>
-				<security:user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER"/>
-			</security:user-service> -->
+<!-- 		<security:authentication-provider ref="customAuthenticationProvider">  -->
+		<security:authentication-provider user-service-ref="customerUserDetailsService"> 
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="user" password="password" authorities="ROLE_USER"/> -->
+<!-- 				<security:user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER"/> -->
+<!-- 			</security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 

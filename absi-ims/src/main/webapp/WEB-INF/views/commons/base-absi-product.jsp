@@ -8,9 +8,9 @@
 	<title><tiles:insertAttribute name="title" ignore="false" /></title>
 
 	<script src="${pageContext.request.contextPath}/resources/js/lib/jquery/1.11.1/jquery.min.js" />  </script>
-	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/style.css" />
-	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/utility.css" /> 
-	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" />
+<%-- 	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/style.css" /> --%>
+<%-- 	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/utility.css" />  --%>
+<%-- 	<link rel="stylesheet" type="text/css" src="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" /> --%>
 	
 </head>
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.absi.ims.domain.IMSClient;
+import com.absi.ims.domain.IMSOutlet;
 import com.absi.ims.domain.IMSProduct;
 import com.absi.ims.service.IMSClientService;
 import com.absi.ims.service.IMSInventoryService;
@@ -42,10 +43,20 @@ public class IMSProductController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadIMSProductList(Model model) {
-		logger.info("Getting list of Products");
-		model.addAttribute("imsProductList", imsProductService.getAllIMSProducts());
+//		logger.info("Getting list of Products");
+//		model.addAttribute("imsProductList", imsProductService.getAllIMSProducts());
 		return "imsProductList";
 	}
+	
+	
+	@RequestMapping(value="/retrieveProducts", method = RequestMethod.POST)
+	public ResponseEntity<List<IMSProduct>> retrieveProducts(){
+
+		List<IMSProduct> products = imsProductService.getAllIMSProducts();
+		
+		return new ResponseEntity<List<IMSProduct>>(products, HttpStatus.OK);
+	}
+	
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String loadIMSProductForm(Model model) {

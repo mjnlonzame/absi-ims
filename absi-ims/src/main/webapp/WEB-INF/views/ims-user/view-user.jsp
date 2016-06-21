@@ -20,7 +20,7 @@
 <body>
 
 		<div class="form-user">
-		
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 			<ul>
 				
 				<li><label><strong> User Type     :</strong></label><span>

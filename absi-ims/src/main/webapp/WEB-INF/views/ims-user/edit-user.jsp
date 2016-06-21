@@ -6,7 +6,7 @@
 
 
 <form:form id="imsUser" modelAttribute="imsUser" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-user">
-		
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 <%-- 		<div class="hidden edit-url">
 			<c:url value="/ims-user/update/${imsUser.id}" />		
 		</div> --%>

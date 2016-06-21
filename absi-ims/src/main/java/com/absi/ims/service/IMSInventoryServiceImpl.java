@@ -66,4 +66,11 @@ public class IMSInventoryServiceImpl implements IMSInventoryService{
 		return imsInventoryDao.retrieveWeeklyInventories(clientId, startPeriod, endPeriod);
 	}
 
+	@Override
+	public List<IMSInventory> retrieveAllInventories() {
+		return imsInventoryDao.retrieveAllInventories();
+	}
+	
+	
+
 }

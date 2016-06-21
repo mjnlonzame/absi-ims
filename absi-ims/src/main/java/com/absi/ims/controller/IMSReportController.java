@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,6 +63,14 @@ public class IMSReportController {
 		
 		
 		return "imsReportForm";
+	}
+	
+	@RequestMapping(value="/retrieveAllInventories", method = RequestMethod.POST)
+	public ResponseEntity<List<IMSInventory>> retrieveAllInventories(){
+
+		List<IMSInventory> inventories = imsInventoryService.retrieveAllInventories();
+		
+		return new ResponseEntity<List<IMSInventory>>(inventories, HttpStatus.OK);
 	}
 	
     @RequestMapping(method = RequestMethod.GET , value = "/weeklyxls/{clientId}/{startPeriod}/{endPeriod}")

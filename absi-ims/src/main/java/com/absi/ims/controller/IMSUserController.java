@@ -1,10 +1,14 @@
 package com.absi.ims.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
+import com.absi.ims.domain.IMSProduct;
 import com.absi.ims.domain.IMSUser;
 import com.absi.ims.service.IMSUserService;
 
@@ -37,9 +40,17 @@ public class IMSUserController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadIMSUserList(Model model) {
 		logger.info("Getting all IMS Users");
-		model.addAttribute("imsUserList", imsUserService.getAllIMSUsers());
+//		model.addAttribute("imsUserList", imsUserService.getAllIMSUsers());
 		return "imsUserList";
 	}
+	
+	@RequestMapping(value="/retrieveUsers", method = RequestMethod.POST)
+	public ResponseEntity<List<IMSUser>> retrieveUsers(){
+
+		List<IMSUser> users = imsUserService.getAllIMSUsers();
+		return new ResponseEntity<List<IMSUser>>(users, HttpStatus.OK);
+	}
+	
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String loadIMSUserForm(Model model) {

@@ -50,7 +50,7 @@ public class IMSProduct extends Auditable implements Serializable {
 	@Column(name = "weight", precision = 13, scale = 2)
 	private BigDecimal weight;
 	
-	@JsonIgnore
+//	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "client_id", nullable = false, updatable = true, insertable = true)
 	private IMSClient client;

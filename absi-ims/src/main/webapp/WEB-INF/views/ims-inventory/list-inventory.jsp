@@ -28,14 +28,17 @@
 </head>
 
 <body>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 	    <div class="search-options">
+	    
 		<input type="text" class="field">
 		<input type="button" value="Search" class="search-btn button">
 		<input type="button" value="Add" class="btnAdd button" onclick="location.href='${pageContext.request.contextPath}/ims-inventory/new'">
 	</div>
 	<ul>
 		<div class="select-inventory" onchange="retrieveInventories()">
-		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<li><label><strong> Inventory Type </strong></label> :<select
 				id="type" onchange="checkValue(this.value)">
 					<option>Daily</option>
@@ -73,25 +76,7 @@
 		</thead>
 		<tbody>
 		</tbody>
-	 <%--  
-		<c:forEach var="inventory" items="${imsInventoryList}">
-				
-
-				<td>	
-					<c:out value="${inventory.period}" />	
-				</td>
-				
-				<td>	
-					<c:out value="${inventory.type}"		/>	
-				</td>
-				
-				<td>	
-					<c:out value="${inventory.amountOfftake}" />	
-				</td>
-				
-			</tr>
-			
-		</c:forEach> --%>
+		<input type="hidden" id="modelAttr" name="modelAttr" value="${modelAttribute}"/>
 	  
 	</table>
 </body>
@@ -115,7 +100,26 @@ $(function(){
 				retrieveInventories();
 				$('#endPeriod').datepicker('hide');
 			});	
+	hideButtons();
 });
+
+
+$("#btnEdit").on("click", function(){
+	location.href=  '${pageContext.request.contextPath}/ims-outlet/edit/' + oTable.rows('.selected').data()[0].id;
+});
+
+function hideButtons(){
+	$("#btnCancel").hide();
+	$("#btnSubmit").hide();
+	$("#btnEdit").hide();
+	$("#btnDelete").hide();
+	
+}
+
+
+		
+
+
 
 
 function checkValue(val) {

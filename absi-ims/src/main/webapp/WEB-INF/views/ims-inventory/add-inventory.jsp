@@ -13,29 +13,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/style.css" /> ">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/utility.css" /> ">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" /> ">
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<c:url value="/resources/css/bootstrap/datepicker.min.css" /> ">	 --%>
-	
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-	
-    <!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>  
-
-
-<script src="<c:url value="/resources/scripts/bootstrap-datepicker.js" />"></script>
 
 </head>
 
 <body>
 	<form:form id="imsInventory" modelAttribute="imsInventory" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-product">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 			<ul>
 				<div class="select-inventory" onchange="getInventory()">
 					<li><label><strong> Inventory Type </strong></label>
@@ -131,7 +115,18 @@
 
 <script type="text/javascript">
 	
-		
+// (function () {
+// 	console.log("wew");
+//     var token = $("input[name='_csrf']").val();
+//     console.log("tokem is ", token);
+//     var header = "X-CSRF-TOKEN";
+//     $(document).ajaxSend(function(e, xhr, options) {
+//         xhr.setRequestHeader(header, token);
+//     });
+// });
+// $(document).ready(function(){
+// 	setCsrfTokeToAjax();
+// });
 		
 $(function(){			
 			$('#period-dp').datepicker({ format: 'mm-dd-yyyy',todayHighlight: true}).on('changeDate', function(ev)

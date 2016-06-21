@@ -23,7 +23,7 @@
 </head>
 
 <body>
-
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 	<ul>
 		<div class="select-inventory" >
 			<li><label><strong> Inventory Type </strong></label> :<select
@@ -48,16 +48,81 @@
 					</c:forEach> </select></li>
 
 		</div>
+		
 	</ul>
 	
 	<input type="button" id="btn-generate-report" value="Submit" class="btnHeader button" onclick="generateReport()"/>
+	<canvas id="monthlyReport" width="50" height="50"></canvas>
 
 </body>
 </html>
 
 
 <script type="text/javascript">
-
+	
+	$(document).ready(function(){
+		retrieveAllInventories();
+	});
+	
+	function retrieveAllInventories(){
+		 $.post('/absi-ims/ims-report/retrieveAllInventories', {} , function(data) {
+				 	console.log(data);		 	
+				 	var inventories = data;
+				 	var totalMonthlyAmountOfftake = [0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0 , 0 , 0 ];
+				 	for(var index in inventories){
+				 		var inventory = inventories[index];
+				 		var inventoryDate = new Date(inventory.period);
+				 		console.log("date is ", inventoryDate);
+				 		var inventoryMonth = inventoryDate.getMonth();
+				 		totalMonthlyAmountOfftake[inventoryMonth] += inventory.amountOfftake;
+				 	}
+				 	
+				 	console.log("totalMonthlyAmountOfftake", totalMonthlyAmountOfftake);
+				 	generateTotalAmountOfftakeGraph(totalMonthlyAmountOfftake);
+			 }, 'json');
+	}
+	
+	function generateTotalAmountOfftakeGraph(totalMonthlyAmountOfftake){
+		var ctx = document.getElementById("monthlyReport").getContext("2d")
+		ctx.canvas.width = 100;
+		ctx.canvas.height = 100;
+		var data = {
+			    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			    datasets: [
+			        {
+			            label: "Monthly amount offtake",
+			            fill: false,
+			            lineTension: 0.1,
+			            backgroundColor: "rgba(75,192,192,0.4)",
+			            borderColor: "rgba(75,192,192,1)",
+			            borderCapStyle: 'butt',
+			            borderDash: [],
+			            borderDashOffset: 0.0,
+			            borderJoinStyle: 'miter',
+			            pointBorderColor: "rgba(75,192,192,1)",
+			            pointBackgroundColor: "#fff",
+			            pointBorderWidth: 1,
+			            pointHoverRadius: 5,
+			            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+			            pointHoverBorderColor: "rgba(220,220,220,1)",
+			            pointHoverBorderWidth: 2,
+			            pointRadius: 1,
+			            pointHitRadius: 10,
+			            data: totalMonthlyAmountOfftake,
+			        }
+			    ]
+			};
+		
+		var  options = {
+	        responsive: true,
+	        maintainAspectRatio : false
+	    };
+		
+		var myLineChart = Chart.Bar(ctx, {
+		    data: data,
+		    options: options
+		});
+	}
 
 	function generateReport(){
 		var clientId = $("#selectClient").val();

@@ -33,9 +33,15 @@
 </head>
 
 <body>
+	<div class="user-top-menu">
+<%-- 		<input type="button" id="btn-user-edit" value="Edit" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user/edit?usrId=${imsUser.id}'"/>	
+		<input type="button" id="btn-user-delete" value="Delete" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user/delete?usrId=${imsUser.id}'"/>	 --%>
+<%-- 		<input type="button" id="btn-user-cancel" value="Cancel" class="btnHeader button" onclick="location.href='${pageContext.request.contextPath}/ims-user'" /> --%>
+<!-- 		<input type="button" id="btn-user-submit" value="Submit" class="btnHeader button" onclick="saveNewOutlet()" /> -->
 	
+	</div>
 	<form:form id="imsOutlet" modelAttribute="imsOutlet" action="${pageContext.servletContext.contextPath}${action}" method="POST" cssClass="form-user">
-		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<ul>
 
 			<li><label><strong> Supplier </strong></label>: 
@@ -75,6 +81,14 @@ $('option').mousedown(function(e) {
     e.preventDefault();
     $(this).prop('selected', !$(this).prop('selected'));
     return false;
+});
+
+$("#btnSubmit").on('click', function(){
+	saveNewOutlet();
+});
+
+$("#btnCancel").on('click', function(){
+	location.href='${pageContext.request.contextPath}/ims-outlet';
 });
 
 function saveNewOutlet()

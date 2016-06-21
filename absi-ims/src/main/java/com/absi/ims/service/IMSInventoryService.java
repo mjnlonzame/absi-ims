@@ -23,4 +23,6 @@ public interface IMSInventoryService {
 	List<IMSInventory> retrieveDailyInventories(Long clientId, Date period);
 	
 	List<IMSInventory> retrieveWeeklyInventories(Long clientId, Date startPeriod, Date endPeriod);
+	
+	List<IMSInventory> retrieveAllInventories();
 }

@@ -21,6 +21,7 @@
 <body>
 
 		<div class="form-outlet">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 			<ul>
 				<c:out value="${action}"/>
 				

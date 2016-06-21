@@ -12,10 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="inventory")
@@ -63,11 +61,15 @@ public class IMSInventory {
 	@Column(name = "end_period")
 	private Date endPeriod;
 	
-	
+	@JsonIgnore 
 	@OneToOne(cascade = CascadeType.ALL )
 	private IMSOutlet outlet;
+	
+	@JsonIgnore 
 	@OneToOne(cascade = CascadeType.ALL)
 	private IMSClient client;
+	
+	@JsonIgnore 
 	@OneToOne(cascade = CascadeType.ALL)
 	private IMSProduct product;
 	public Long getId() {

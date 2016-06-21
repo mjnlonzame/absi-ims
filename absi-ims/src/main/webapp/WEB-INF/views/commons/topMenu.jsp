@@ -20,13 +20,14 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap/bootstrap-theme.min.css" /> ">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font-awesome-4.4.0/css/font-awesome.min.css" /> ">
 
-
+ 
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
+	
 
 </head>
 

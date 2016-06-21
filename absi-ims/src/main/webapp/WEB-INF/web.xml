@@ -10,24 +10,24 @@
 <!-- 		<filter-name>CorsFilter</filter-name> -->
 <!-- 		<url-pattern>/absi-ims/ims-inventory/filterClient</url-pattern> -->
 <!-- 	</filter-mapping> -->
-<mvc:resources mapping="/resources/**" location="/resources/" />
-	<filter>
+<!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+<!-- 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 	
-	<context-param>
+<!-- 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/security-context.xml
 		</param-value>
-	</context-param>
+	</context-param> -->
 	
-	<listener>
+<!-- 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
@@ -46,6 +46,6 @@
 	<servlet-mapping>
 		<servlet-name>absi-ims</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
 </web-app>
