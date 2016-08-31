@@ -30,17 +30,17 @@
 					</li>
  				
 					<li id="weekly" style='display:none'>
-						<label><strong> From : </strong></label><form:input type="text" path="startPeriod" id="startPeriod" name="startPeriod"/> &nbsp &nbsp
-						<label><strong> To : </strong></label><form:input type="text" path="endPeriod" id="endPeriod" name="endPeriod"/>
+						<label><strong> From : </strong></label><form:input type="text" path="startPeriod" id="startPeriod" name="startPeriod"  /> &nbsp &nbsp
+						<label><strong> To : </strong></label><form:input type="text" path="endPeriod" id="endPeriod" name="endPeriod"  />
 					</li>
 					<li id="daily" >
 <!-- 						<label><strong> Today : </strong></label> -->
 <%-- 						<form:input id="dailyPeriod" type="date" path="period" /> --%>
-							<label> Today : </label>:<form:input type="text" path="period" id="period-dp" name="datepicker"/>
+							<label> Today : </label>:<form:input type="text" path="period" id="period-dp" name="datepicker" class="required" />
 					</li>
 
 					<li><label><strong> Outlet </strong></label>:
-						<form:select id="selectOutlet" path="outlet.id"  > 
+						<form:select id="selectOutlet" path="outlet.id"  class="required" > 
 						    <form:option value=""> --SELECT--</form:option>
 					      <c:forEach items="${outlets}" var="outletObj">
 					            <option id="selectedOutlet" value="${outletObj.id}">${outletObj.name}</option> 
@@ -48,7 +48,7 @@
 					    </form:select>
 					</li>	
 					<li><label><strong> Client </strong></label>:
-						<form:select id="selectClient" path="client.id">
+						<form:select id="selectClient" path="client.id" class="required" >
 						    <form:option value=""> --SELECT--</form:option>
 					      <c:forEach items="${clients}" var="clientObj">
 					      	<option value="${clientObj.id}">${clientObj.name}</option> 
@@ -57,7 +57,7 @@
 					</li>
 					
 					<li><label><strong> Product </strong></label>:
-						<form:select id="selectProduct" path="product.id" >
+						<form:select id="selectProduct" path="product.id" class="required"  >
 						    <form:option value=""> --SELECT--</form:option>
 					      <c:forEach items="${products}" var="productObj">
 					            <option value="${productObj.id}">${productObj.name}</option> 
@@ -71,7 +71,7 @@
 								<br>
 									<li><label><strong> Out-ofStock : </strong></label>:<form:input id="outOfStockDay" type="text" path="outOfStockDay" readonly="true"/></li>
 									<li><label><strong> Previous : </strong></label><form:input id="previousStock" type="text" path="previousStock" readonly="true"/></li>
-									<li><label><strong> Delivery : </strong></label><form:input id="deliveredItem" type="text" path="deliveredItem"  onchange="updatebeginningInventory()" readonly="false"/></li>	
+									<li><label><strong> Delivery : </strong></label><form:input id="deliveredItem" type="text" path="deliveredItem"  class="required" onchange="updatebeginningInventory()" readonly="false"/></li>	
 									
 									<div class="TOTAL">
 										<li><label><strong> TOTAL : </strong></label><span id="beginningTotal"  >0</span> pcs </li>
@@ -83,9 +83,9 @@
 								<strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ENDING INVENTORY </strong>
 								<br>
 
-									<li><label><strong> Shelves : </strong></label><form:input id="shelvesItem" type="text" path="shelvesItem" value="0" readonly="false"/></li>
-									<li><label><strong> Warehouse : </strong></label><form:input id="warehouseItem" type="text" path="warehouseItem" value="0" readonly="false"/></li>	
-									<li><label><strong> Gondola : </strong></label><form:input id="gondolaItem" type="text" path="gondolaItem" value="0" readonly="false"/></li>	
+									<li><label><strong> Shelves : </strong></label><form:input id="shelvesItem" type="text" path="shelvesItem" value="0" class="required" readonly="false"/></li>
+									<li><label><strong> Warehouse : </strong></label><form:input id="warehouseItem" type="text" path="warehouseItem" value="0" class="required" readonly="false"/></li>	
+									<li><label><strong> Gondola : </strong></label><form:input id="gondolaItem" type="text" path="gondolaItem" value="0" class="required" readonly="false"/></li>	
 									
 									<div class="TOTAL">
 										<li><label><strong> TOTAL :  </strong></label><span id="endingTotal" onchange="computeStockOfftake()">0 </span> pcs</li>
@@ -148,6 +148,7 @@ function hideButtons(){
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
+	$("#btnView").hide();
 }
 
 		
@@ -161,6 +162,8 @@ function checkValue(val) {
     	$("#deliveredItem").attr("readonly", false);
 		$("#startPeriod").val("");
 	    $("#endPeriod").val(""); 
+	    $("#startPeriod, #endPeriod").removeClass("required").removeClass("with-error");
+	    $("#period-dp").addClass("required");
         document.getElementById('daily').style.display='block';
         document.getElementById('weekly').style.display='none';
     } else {
@@ -169,6 +172,8 @@ function checkValue(val) {
     	$("#gondolaItem").attr("readonly", true);
     	$("#deliveredItem").attr("readonly", true);
     	$("#period-dp").val("");
+    	$("#period-dp").removeClass("required").removeClass("with-error");
+    	$("#startPeriod, #endPeriod").addClass("required");
         document.getElementById('daily').style.display='none';
         document.getElementById('weekly').style.display='block';     	
     }
@@ -197,15 +202,28 @@ function updateEndingInventory(){
 	
 	var total = gondola + warehouse + shelves;
 	console.log("total is " + total);	
-	$("#endingTotal").text(total);
 	
+	
+// 	if(total < $("#beginningTotal").text()){
+		$("#endingTotal").text(total);
+// 		VAR ENDINGINVENTORY = PARSEINT($("#ENDINGTOTAL").TEXT());
+// 		VAR BEGINNINGINVENTORY = PARSEINT($("#BEGINNINGTOTAL").TEXT());
+		
+		computeTotalComputation();
+// 	}
+		
 
-	var endingInventory = parseInt($("#endingTotal").text());
-	var beginningInventory = parseInt($("#beginningTotal").text());
-	
-	computeTotalComputation();
 
 }
+
+// $("#endingInv").on("change", function(){
+// 	console.log("CHANGE!!!");
+// 	var gondola = parseInt($("#gondolaItem").val());
+// 	var warehouse = parseInt($("#warehouseItem").val());
+// 	var shelves = parseInt($("#shelvesItem").val());
+	
+	
+// });
 
 
 function computeTotalComputation(){
@@ -225,6 +243,21 @@ function computeTotalComputation(){
 	}
 }
 
+$("#warehouseItem, #gondolaItem, #shelvesItem").on("change", function(){
+	var previousStock = parseInt($("#previousStock").val());
+	var deliveredItem = parseInt($("#deliveredItem").val());
+	var beginningInventory = deliveredItem + previousStock;	console.log("dsadsa");
+	
+	var gondola = parseInt($("#gondolaItem").val());
+	var warehouse = parseInt($("#warehouseItem").val());
+	var shelves = parseInt($("#shelvesItem").val());
+	var endingInventory = gondola + warehouse + shelves;
+
+	if(endingInventory > beginningInventory){
+    	$(this).val(0)
+    	alert("Inputting this will make the ending inventory greater than the beginning inventory. Please input a valid one!")
+	}
+});
 
 function updatebeginningInventory(){
 	var previousStock = parseInt($("#previousStock").val());
@@ -300,10 +333,13 @@ $("#selectClient").change(function(){
 		 
 		if($("#type").val() === 'Daily' ){
 			
-			period.setDate(period.getDate()-1);
+			period.setDate(period.getDate()-1) ;
 			var strPeriod = formatDate(period);	
 			 $.post('/absi-ims/ims-inventory/retrievePrevious', {productId : productId, outletId: outletId,  period : strPeriod} , function(data) {
 				 	console.log(data);
+				 	if(data.stockOfftake < 20 && data.id != null){
+				 		alert("Threshold limit is reached, please be informed!");
+				 	}
 				 	$("#previousStock").val(data.stockOfftake);
 				 	$("#outOfStockDay").val(data.outOfStockDay);
 				 	$("#deliveredItem").val("");
@@ -388,10 +424,15 @@ function formatDate(date) {
 
 function saveNewInventory()
 {
-	console.log("dp period is ", $("#period-dp").val());
 
-	document.getElementById("imsInventory").submit();
-	alert ("Data has been updated");
+
+	
+	if(isFormValid()){
+		document.getElementById("imsInventory").submit();
+		alert ("Data has been updated");
+	} else {
+		alert("Please complete required fields!");
+	}
 }
 
 </script>

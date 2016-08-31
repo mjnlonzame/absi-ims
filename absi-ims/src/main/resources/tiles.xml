@@ -36,6 +36,7 @@
 			<add-attribute value="/resources/scripts/bootstrap-datepicker.js" />
 			<add-attribute value="/resources/js/lib/datatable/jquery.dataTables.min.js" />
 			<add-attribute value="/resources/js/csrfUtil.js" />
+			<add-attribute value="/resources/js/util.js" />
 			<add-attribute value="/resources/js/lib/chart/Chart.min.js" />
 		</put-list-attribute>
 	</definition>

@@ -34,8 +34,8 @@
 			<ul>
 					
 					<li><label><strong>Client</strong></label>:
-						<form:select path="client.id">
-						    <form:option value="NONE"> --SELECT--</form:option>
+						<form:select class="required" path="client.id">
+						    <form:option value=""> --SELECT--</form:option>
 					      <c:forEach items="${clients}" var="clientObj">
 					            <option value="${clientObj.id}">${clientObj.name}</option> 
 					        </c:forEach>
@@ -44,8 +44,8 @@
 					
 					
 					
-					<li><label><strong> Product Category </strong></label>:<form:select path="category" >
-					                                <option>  </option>
+					<li><label><strong> Product Category </strong></label>:<form:select class="required" path="category" >
+					                                <option>  </option>	 	
 													<option> Shampoo </option>
 					                                <option> Soap </option>
 					                                <option> Conditioner </option>
@@ -54,10 +54,10 @@
 					</li>
 					
 					
-					<li><label><strong> Product Name </strong></label>:<form:input type="text" path="name"/></li>
-					<li><label><strong> Unit Price </strong></label>:<form:input type="text" path="price"/></li>
-					<li><label><strong> SKU </strong></label>:<form:input type="text" path="sku"/></li>
-					<li><label><strong> Weight </strong></label>:<form:input type="text" path="weight"/></li>			
+					<li><label><strong> Product Name </strong></label>:<form:input class="required" stype="text" path="name"/></li>
+					<li><label><strong> Unit Price </strong></label>:<form:input class="required" type="text" path="price"/></li>
+					<li><label><strong> SKU </strong></label>:<form:input class="required" type="text" path="sku"/></li>
+					<li><label><strong> Weight </strong></label>:<form:input class="required" type="text" path="weight"/></li>			
 <!-- 					<li> -->
 <!-- 						<label><strong> Product Description </strong></label>:  -->
 <%-- 						<form:textarea class="form-control" rows="4" path="description"></form:textarea> --%>
@@ -75,26 +75,40 @@
 $(document).ready(function(){
 	hideButtons();
 });
-$("#btnSubmit").on('click', function(){
-	saveNewProduct();
-});
+
 
 $("#btnCancel").on('click', function(){
 	location.href='${pageContext.request.contextPath}/ims-product';
 });
 
 function hideButtons(){
-
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
 }
 
+$(".required").focusout(function(){
+// 	console.log("this is ",$(this));
+	if($(this).val().trim() === ""){
+		$(this).addClass("with-error");
+	} else {
+		$(this).removeClass("with-error");
+	}
+});
+
+$("#btnSubmit").on('click', function(){
+	saveNewProduct();
+});
 
 function saveNewProduct()
 {
-	document.getElementById("imsProduct").submit();
-	alert ("Data has been updated");
+	if(isFormValid()){
+		document.getElementById("imsProduct").submit();
+		alert ("New Product has been saved!");
+	} else {
+		alert("Please complete required fields!");
+	}
+
 }
 
 </script>

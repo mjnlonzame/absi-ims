@@ -24,7 +24,7 @@
 			<ul>
 				
 				<li><label><strong> User Type     :</strong></label><span>
-				<c:out value="Employee"/></span></li>	
+				<c:out value="${imsUser.userType}"/></span></li>	
 				
 				<li><label><strong> Username     :</strong></label><span>
 				<c:out value= "${imsUser.username}" /></span></li>
@@ -84,6 +84,7 @@ function hideButtons(){
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
 	$("#btnSubmit").hide();
+	$("#btnView").hide();
 }
 
 

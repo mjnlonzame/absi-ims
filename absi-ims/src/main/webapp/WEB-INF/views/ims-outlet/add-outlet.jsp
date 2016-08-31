@@ -45,26 +45,26 @@
 		<ul>
 
 			<li><label><strong> Supplier </strong></label>: 
-				<form:select
-					path="clients" >
+				<form:select 	 
+					path="clients" class="required-multiple" > 	
 					<c:forEach items="${clients}" var="outletObj">
-						<option value="${outletObj.id}">${outletObj.name}</option>
+						<option  value="${outletObj.id}">${outletObj.name}</option>
 					</c:forEach> 
 				</form:select></li>
 			<li><label><strong> Outlet Name </strong></label>:<form:input
-					type="text" path="name" /></li>
+					class="required" maxlength="80" type="text" path="name" /></li>
 			
 			<li><label><strong> Contact Number </strong></label>:<form:input
-					type="text" path="contactNumber" /></li>
+					class="required" type="text" path="contactNumber" /></li>
 			
-			<li><label><strong> Address </strong></label>:<form:input
-					type="text" path="address" /></li>
+			<li><label><strong> Address  </strong></label>:<form:input
+					class="required" maxlength="250"  type="text" path="address" /></li>
 			
 			<li><label><strong> City </strong></label>:<form:input
-					type="text" path="city" /></li>
+					class="required" type="text" path="city" /></li>
 			
 			<li><label><strong> Postal Code </strong></label>:<form:input
-				type="text" path="postalCode"/></li>			
+				class="required" type="number 		" path="postalCode"/></li>			
 			
 		</ul>
 	</form:form>
@@ -104,8 +104,13 @@ $("#btnCancel").on('click', function(){
 
 function saveNewOutlet()
 {
-	document.getElementById("imsOutlet").submit();
-	alert ("New User has been saved!");
+	if(isFormValid()){
+		document.getElementById("imsOutlet").submit();
+		alert ("New Outlet has been saved!");
+	} else {
+		alert("Please complete required fields!");
+	}
+
 }
 	
 </script>

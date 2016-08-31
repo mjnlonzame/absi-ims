@@ -3,9 +3,12 @@ package com.absi.ims.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.QueryHint;
+
 //import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,9 @@ public interface IMSInventoryDao extends CrudRepository<IMSInventory, Long>{
 	
 	@Query("SELECT i FROM IMSInventory i join i.client join i.outlet join i.product where i.period >=  '2016-01-01 00:00:00' AND i.period < '2017-01-01 00:00:00'")
 	List<IMSInventory> retrieveAllInventories();
+	
+	@Query(value = "SELECT i FROM IMSInventory i join i.product p join i.outlet o where  p.id=:productId AND o.id=:outletId ORDER BY i.period")
+	List<IMSInventory> retrieveFirstInventory(@Param("productId") Long productId, @Param("outletId") Long outletId);
 //	SELECT * FROM ims.inventory WHERE inventory_type = 'Daily' AND  inventory_period >=  '2016-01-01 00:00:00' AND inventory_period < '2017-01-01 00:00:00'
 	
 }

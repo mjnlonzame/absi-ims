@@ -3,6 +3,8 @@ package com.absi.ims.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.absi.ims.domain.IMSInventory;
 
 public interface IMSInventoryService {
@@ -25,4 +27,6 @@ public interface IMSInventoryService {
 	List<IMSInventory> retrieveWeeklyInventories(Long clientId, Date startPeriod, Date endPeriod);
 	
 	List<IMSInventory> retrieveAllInventories();
+	
+	List<IMSInventory> retrieveFirstInventory(Long productId, Long outletId);
 }

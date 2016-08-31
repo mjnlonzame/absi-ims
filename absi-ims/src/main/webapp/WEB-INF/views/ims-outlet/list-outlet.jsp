@@ -54,6 +54,11 @@
 	$("#btnDelete").on("click", function(){
 		location.href=  '${pageContext.request.contextPath}/ims-outlet/delete?outletId=' + oTable.rows('.selected').data()[0].id;
 	});
+	
+	$("#btnView").on("click", function(){
+		location.href=  '${pageContext.request.contextPath}/ims-outlet/view/' + oTable.rows('.selected').data()[0].id;
+	});
+
 
 
 			

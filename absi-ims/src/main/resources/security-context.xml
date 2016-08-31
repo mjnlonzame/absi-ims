@@ -25,6 +25,7 @@
 
 
 	<security:http  auto-config="true" use-expressions="false" >
+	<security:access-denied-handler error-page="/login" />
 		<security:form-login login-page="/login"
 	login-processing-url="/login" username-parameter="username"
 	password-parameter="password" default-target-url="/ims-inventory/" 
@@ -33,9 +34,28 @@
 		<security:intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 <!--  	<security:intercept-url pattern="/resources/**" access="permitAll" /> -->
+
+		<security:intercept-url pattern="/ims-user/**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/ims-user/new" access="ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-user" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-user/retrieveUsers" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-user/view/**" access="ROLE_COORDINATOR, ROLE_ENCODER"/>
+		
 		<security:intercept-url pattern="/ims-outlet/**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/ims-outlet/new" access="ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-outlet" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-outlet/retrieveOutlets" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-outlet/view/**" access="ROLE_COORDINATOR, ROLE_ENCODER"/>
+
+		<security:intercept-url pattern="/ims-product/**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/ims-product/new" access="ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-product" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-product/retrieveProducts" access="ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-product/view/**" access="ROLE_COORDINATOR, ROLE_ENCODER"/>		
+		
 <!-- 		<security:intercept-url pattern="/login" access="ROLE_ENCODER, ROLE_ADMIN, ROLE_CLIENT"/> -->
-		<security:intercept-url pattern="/ims-inventory/**" access="ROLE_ENCODER, ROLE_ADMIN, ROLE_CLIENT"/>
+		<security:intercept-url pattern="/ims-inventory/**" access="ROLE_ADMIN, ROLE_ENCODER, ROLE_COORDINATOR"/>
+		<security:intercept-url pattern="/ims-report/**" access="ROLE_ADMIN, ROLE_ENCODER, ROLE_CLIENT, ROLE_COORDINATOR"/>
 		<security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
 <!-- 		<security:intercept-url pattern="/login/**" access="ROLE_ANONYMOUS"/> -->
 		

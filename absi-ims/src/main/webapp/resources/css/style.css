@@ -292,3 +292,15 @@
 .clr {
 	clear:both;
 }
+
+input.with-error {
+/*     border-style: solid; */
+/*     border-color: red; */
+	border:2px solid red;
+}
+
+select.with-error {
+/*     border-style: solid; */
+/*     border-color: red; */
+	border:2px solid red;
+}

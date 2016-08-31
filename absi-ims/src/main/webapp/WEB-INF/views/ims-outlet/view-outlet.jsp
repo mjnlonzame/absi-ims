@@ -60,6 +60,7 @@ function hideButtons(){
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
 	$("#btnSubmit").hide();
+	$("#btnView").hide();
 }
 
 

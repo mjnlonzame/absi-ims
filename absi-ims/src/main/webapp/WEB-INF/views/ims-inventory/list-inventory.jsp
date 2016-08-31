@@ -113,6 +113,7 @@ function hideButtons(){
 	$("#btnSubmit").hide();
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
+	$("#btnView").hide();
 	
 }
 

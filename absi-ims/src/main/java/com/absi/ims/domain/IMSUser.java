@@ -38,7 +38,7 @@ public class IMSUser extends Auditable implements Serializable, UserDetails {
 	@Column(name = "username")
 	private String username;
 	
-	@Size(min=1, max=35)
+//	@Size(min=1, max=35)
 	@Column(name = "password")
 	private String password;
 	
@@ -46,11 +46,11 @@ public class IMSUser extends Auditable implements Serializable, UserDetails {
 	@Column(name = "first_name")
 	private String firstname;
 
-	@Size(min=1, max=35)
+//	@Size(min=1, max=35)
 	@Column(name = "middle_name")
 	private String middlename;
 
-	@Size(min=1, max=35)
+//	@Size(min=1, max=35)
 	@Column(name = "last_name")
 	private String lastname;
 

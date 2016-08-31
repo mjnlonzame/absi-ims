@@ -39,6 +39,10 @@
 		location.href=  '${pageContext.request.contextPath}/ims-product/edit?productId=' + oTable.rows('.selected').data()[0].id;
 	});
 	
+	$("#btnView").on("click", function(){
+		location.href=  '${pageContext.request.contextPath}/ims-product/view/' + oTable.rows('.selected').data()[0].id;
+	});
+	
 	function hideButtons(){
 		$("#btnCancel").hide();
 		$("#btnSubmit").hide();

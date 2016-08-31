@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.absi.ims.domain.IMSProduct;
 import com.absi.ims.domain.IMSUser;
+import com.absi.ims.service.EmailService;
 import com.absi.ims.service.IMSUserService;
 
 @Controller
@@ -37,6 +39,9 @@ public class IMSUserController {
 	@Autowired
 	private IMSUserService imsUserService;
 
+	@Autowired
+	private EmailService emailService;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadIMSUserList(Model model) {
 		logger.info("Getting all IMS Users");
@@ -111,14 +116,18 @@ public class IMSUserController {
 		model.addAttribute("imsUser", imsuser);
 	}
 
+	public String generatePassword(){
+		return RandomStringUtils.randomAlphanumeric(12);
+	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveIMSUser(@Valid @ModelAttribute("imsUser") IMSUser imsUser, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-			
+		imsUser.setPassword(generatePassword());
+		emailService.sendEmail(imsUser.getEmailAddress(), imsUser.getPassword());
 		imsUserService.addIMSUser(imsUser);
-		Authentication auth = new UsernamePasswordAuthenticationToken(imsUser, imsUser.getPassword(),imsUser.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
+//		Authentication auth = new UsernamePasswordAuthenticationToken(imsUser, imsUser.getPassword(),imsUser.getAuthorities());
+//		SecurityContextHolder.getContext().setAuthentication(auth);
 		return "redirect:/ims-user";
 	}
 	

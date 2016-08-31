@@ -74,6 +74,10 @@
 	$("#btnDelete").on("click", function(){
 		location.href=  '${pageContext.request.contextPath}/ims-user/delete?usrId=' + oTable.rows('.selected').data()[0].id;
 	});
+	
+	$("#btnView").on("click", function(){
+		location.href=  '${pageContext.request.contextPath}/ims-user/view/' + oTable.rows('.selected').data()[0].id;
+	});
 
 
 			

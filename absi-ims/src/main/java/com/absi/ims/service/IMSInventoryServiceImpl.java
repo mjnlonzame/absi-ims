@@ -70,6 +70,11 @@ public class IMSInventoryServiceImpl implements IMSInventoryService{
 	public List<IMSInventory> retrieveAllInventories() {
 		return imsInventoryDao.retrieveAllInventories();
 	}
+
+	@Override
+	public List<IMSInventory> retrieveFirstInventory(Long productId, Long outletId) {
+		return imsInventoryDao.retrieveFirstInventory(productId, outletId);
+	}
 	
 	
 

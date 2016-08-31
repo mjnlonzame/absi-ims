@@ -57,13 +57,12 @@
 		<div class="user-top-menu">
 
 
-			<input type="button" id="btnDelete" value="Delete"
-				class="btnHeader button" /> <input type="button" id="btnEdit"
-				value="Edit" class="btnHeader button" /> <input type="button"
-				id="btnAdd" value="Add" class="btnHeader button"> <input
-				type="button" id="btnCancel" value="Cancel" class="btnHeader button" />
-			<input type="button" id="btnSubmit" value="Submit"
-				class="btnHeader button" />
+			<input type="button" id="btnDelete" value="Delete"class="btnHeader button" />
+			<input type="button" id="btnEdit" value="Edit" class="btnHeader button" />  
+			<input type="button" id="btnView" value="View" class="btnHeader button" /> 
+			<input type="button" id="btnAdd" value="Add" class="btnHeader button"> 
+			<input type="button" id="btnCancel" value="Cancel" class="btnHeader button" />
+			<input type="button" id="btnSubmit" value="Submit" class="btnHeader button" />
 
 
 		</div>

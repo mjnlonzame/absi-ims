@@ -123,7 +123,6 @@
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-taglibs</artifactId>
 		<version>4.0.4.RELEASE</version>
-		$NO-MVN-MAN-VER$
 	</dependency>
 	<dependency>
 		<groupId>javax.ws.rs</groupId>
@@ -147,6 +146,12 @@
 		<groupId>net.sf.jasperreports</groupId>
 		<artifactId>jasperreports</artifactId>
 		<version>6.2.0</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.5.5</version>
 	</dependency>
 
 
@@ -192,24 +197,8 @@
         	<artifactId>jackson-datatype-hibernate4</artifactId>
         </dependency>
         <dependency>
-        	<groupId>com.fasterxml.jackson.datatype</groupId>
-        	<artifactId>jackson-datatype-hibernate4</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>com.fasterxml.jackson.datatype</groupId>
-        	<artifactId>jackson-datatype-hibernate4</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>com.fasterxml.jackson.datatype</groupId>
-        	<artifactId>jackson-datatype-hibernate4</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>com.fasterxml.jackson.datatype</groupId>
-        	<artifactId>jackson-datatype-hibernate4</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>com.fasterxml.jackson.datatype</groupId>
-        	<artifactId>jackson-datatype-hibernate4</artifactId>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 	</dependencies>
 	

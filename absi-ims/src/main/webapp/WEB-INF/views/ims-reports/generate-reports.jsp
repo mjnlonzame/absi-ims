@@ -87,6 +87,7 @@
 		$("#btnEdit").hide();
 		$("#btnDelete").hide();
 		$("#btnAdd").hide();
+		$("#btnView").hide();
 	}
 	
 	function showSalesGraph(){

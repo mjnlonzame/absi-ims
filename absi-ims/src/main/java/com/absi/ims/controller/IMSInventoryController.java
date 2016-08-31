@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,20 +113,40 @@ public class IMSInventoryController {
 		System.out.println("period is " + period);
 		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		Date date = new Date();
+//		Date dateToday = new Date();
+		
+		
+		List<IMSInventory> inventories = imsInventoryService.retrieveFirstInventory(Long.valueOf(productId), Long.valueOf(outletId));
+		
+		IMSInventory firstInventory = null;
+		IMSInventory inventory =  null;
+
+		if (inventories.size()  == 0) {
+			inventory = new IMSInventory();
+			inventory.setOutOfStockDay(new Long(0));
+			inventory.setStockOfftake(new Long(0));
+			return new ResponseEntity<IMSInventory>(inventory, HttpStatus.OK);
+		} else {
+			firstInventory = inventories.get(0);
+		}
+		
+		Date firstInventoryDate = new Date();
 		try {
+//			dateToday = formatter.parse(formatter.format(dateToday));
+			firstInventoryDate = formatter.parse(formatter.format(firstInventory.getPeriod()));
 			date = formatter.parse(period);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		IMSInventory inventory =  imsInventoryService.retrieveInventoryByProductId(Long.valueOf(productId), Long.valueOf(outletId), date);
-		if(inventory == null){
-			inventory = new IMSInventory();
-			inventory.setOutOfStockDay(new Long(0));
-			inventory.setStockOfftake(new Long(0));
-			return new ResponseEntity<IMSInventory>(inventory, HttpStatus.OK);
+
+		
+		while(inventory == null){
+			inventory =  imsInventoryService.retrieveInventoryByProductId(Long.valueOf(productId), Long.valueOf(outletId), date);
+			date = DateUtils.addDays(date, -1);
 		}
+
 		return new ResponseEntity<IMSInventory>(inventory, HttpStatus.OK);
 	}
 	
