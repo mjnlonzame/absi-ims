@@ -37,10 +37,10 @@
 				To : </strong></label> <input id="endPeriod" type="date" />
 			</li>
 			<li id="daily"><label><strong> 
-				Today : </strong></label> <input id="dailyPeriod" type="date" /></li>
+				Today : </strong></label> <input id="dailyPeriod" type="date" class="required"/></li>
 
 			<li><label><strong> Client </strong></label>: 
-				<select id="selectClient" >
+				<select id="selectClient" class="required" >
 				<option value="">--SELECT--
 					</option>
 					<c:forEach items="${clients}" var="clientObj">
@@ -166,23 +166,22 @@
 	}
 
 	function generateReport(){
-		var clientId = $("#selectClient").val();
-		var type = $("#type").val();
 		
-		if(type==="Weekly"){
-			var startPeriod = formatDate( $("#startPeriod").val());
-			var endPeriod =formatDate($("#endPeriod").val());
-// 			$('#btn-generate-report').click(function() {
-			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/weeklyxls/' + clientId + '/'   + startPeriod +  '/' + endPeriod;
+		if(isFormValid()){
+			var clientId = $("#selectClient").val();
+			var type = $("#type").val();
 			
-// 			});
-		} else {
-			var period =formatDate($("#dailyPeriod").val());
-// 			$('#btn-generate-report').click(function() {
-			    window.location.href = 'http://localhost:8080/absi-ims/ims-report/dailyxls/' + clientId + '/'  + period ;
-			
+			if(type==="Weekly"){
+				var startPeriod = formatDate( $("#startPeriod").val());
+				var endPeriod =formatDate($("#endPeriod").val());
+				    window.location.href = 'http://localhost:8080/absi-ims/ims-report/weeklyxls/' + clientId + '/'   + startPeriod +  '/' + endPeriod;
+			} else {
+				var period =formatDate($("#dailyPeriod").val());
+				    window.location.href = 'http://localhost:8080/absi-ims/ims-report/dailyxls/' + clientId + '/'  + period ;
+			}
 
-// 			});
+		} else {
+			alert("Please complete required fields!");
 		}
 
 	}
@@ -193,10 +192,15 @@
 		if (val === "Daily") {
 			$("#startPeriod").val("");
 			$("#endPeriod").val("");
+		    $("#startPeriod, #endPeriod").removeClass("required").removeClass("with-error");
+		    $("#dailyPeriod").addClass("required");
 			document.getElementById('daily').style.display = 'block';
 			document.getElementById('weekly').style.display = 'none';
 		} else {
+			
 			$("#dailyPeriod").val("");
+	    	$("#dailyPeriod").removeClass("required").removeClass("with-error");
+	    	$("#startPeriod, #endPeriod").addClass("required");
 			document.getElementById('daily').style.display = 'none';
 			document.getElementById('weekly').style.display = 'block';
 		}
@@ -215,8 +219,15 @@
 		return [month, day, year].join('-');
 	}
 
-	function saveNewInventory() {
-		document.getElementById("imsInventory").submit();
-		alert("Data has been updated");
-	}
+// 	function saveNewInventory() {
+// 		document.getElementById("imsInventory").submit();
+// 		alert("Data has been updated");
+		
+// 		if(isFormValid()){
+// 			document.getElementById("imsInventory").submit();
+// 			alert ("Data has been updated");
+// 		} else {
+// 			alert("Please complete required fields!");
+// 		}
+// 	}
 </script>

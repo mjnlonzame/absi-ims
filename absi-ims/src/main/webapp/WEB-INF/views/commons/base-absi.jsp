@@ -1,7 +1,7 @@
-\<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <tiles:importAttribute name="javascripts"/>
 <tiles:importAttribute name="stylesheets"/>
 		
@@ -56,11 +56,24 @@
 
 		<div class="user-top-menu">
 
-
-			<input type="button" id="btnDelete" value="Delete"class="btnHeader button" />
-			<input type="button" id="btnEdit" value="Edit" class="btnHeader button" />  
-			<input type="button" id="btnView" value="View" class="btnHeader button" /> 
-			<input type="button" id="btnAdd" value="Add" class="btnHeader button"> 
+			<security:authorize   access="hasAnyRole('ROLE_ADMIN', 'ROLE_COORDINATOR')">
+				<input type="button" id="btnAdd" value="Add" class="btnHeader button">
+			</security:authorize>
+			<security:authorize access="hasRole('ROLE_ADMIN')">
+				<input type="button" id="btnDelete" value="Delete" class="btnHeader button" />
+			</security:authorize>
+			<security:authorize access="hasRole('ROLE_ADMIN')">
+				<input type="button" id="btnEdit" value="Edit" class="btnHeader button" /> 
+			</security:authorize>
+			
+			<security:authorize access="!hasRole('ROLE_CLIENT')">
+				<input type="button" id="btnView" value="View" class="btnHeader button" /> 
+			</security:authorize>
+			 
+			 
+			 
+			
+			<input type="button" id="btnAddInventory" value="Add" class="btnHeader button" style="display: none;"> 
 			<input type="button" id="btnCancel" value="Cancel" class="btnHeader button" />
 			<input type="button" id="btnSubmit" value="Submit" class="btnHeader button" />
 

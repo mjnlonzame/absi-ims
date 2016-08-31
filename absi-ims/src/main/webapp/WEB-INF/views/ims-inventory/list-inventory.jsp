@@ -114,10 +114,12 @@ function hideButtons(){
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
 	$("#btnView").hide();
+	$("#btnAdd").hide();
+	$("#btnAddInventory").show();
 	
 }
 
-$("#btnAdd").on("click", function(){
+$("#btnAddInventory").on("click", function(){
 	 location.href='${pageContext.request.contextPath}/ims-inventory/new';
 });
 

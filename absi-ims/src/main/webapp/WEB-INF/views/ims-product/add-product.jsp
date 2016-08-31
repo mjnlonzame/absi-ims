@@ -85,6 +85,7 @@ function hideButtons(){
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
+	$("#btnView").hide();
 }
 
 $(".required").focusout(function(){

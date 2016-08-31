@@ -28,10 +28,6 @@
 				
 				<li><label><strong> Username     :</strong></label><span>
 				<c:out value= "${imsUser.username}" /></span></li>
-				
-				<li><label><strong> Password     :</strong></label><span>
-				<c:out value= "${imsUser.password}" /></span></li>
-				
 				<li><label><strong> Client Name     :</strong></label><span>
 				<c:out value="Biolinks"/></span></li>
 				

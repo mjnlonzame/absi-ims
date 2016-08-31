@@ -43,10 +43,11 @@
 					id="userType" path="userType">
 <!-- 					<option></option> --> 	
 					<option value="ROLE_ADMIN">Admin</option>
+					<option value="ROLE_COORDINATOR">Coordinator</option>
 					<option value="ROLE_ENCODER">Encoder</option>
 					<option value="ROLE_CLIENT">Client</option>
 				</form:select></li>
-			<li><label><strong> Usernameee </strong></label>:<form:input
+			<li><label><strong> Username </strong></label>:<form:input
 					type="text"  class="required" path="username" readonly="true" /></li>
 <%-- 			<li><label><strong> Password </strong></label>:<form:input --%>
 <%-- 					type="text" class="required" path="password" /></li> --%>
@@ -65,8 +66,28 @@
 					type="text" maxlength="40" class="required" path="emailAddress" /></li>
 			<li><label><strong> Address </strong></label>:<form:input
 					type="text" maxlength="250" class="required" path="address" /></li>
-			<li><label><strong> City </strong></label>:<form:input
-					type="text" class="required" path="city" /></li>
+<%-- 			<li><label><strong> City </strong></label>:<form:input --%>
+<%-- 					type="text" class="required" path="city" /></li> --%>
+			<li><label><strong> City </strong></label>:<form:select
+					id="city" class="required" path="city">
+					<option value=""> --SELECT--</option> 	
+					<option value="Manila">Manila</option>
+					<option value="Caloocan">Caloocan</option>
+					<option value="Las Piñas">Las Piñas</option>
+					<option value="Makati">Makati</option>
+					<option value="Malabon">Malabon</option>
+					<option value="Mandaluyong">Mandaluyong</option>
+					<option value="Marikina">Marikina</option>
+					<option value="Muntinlupa">Muntinlupa</option>
+					<option value="Makati">Makati</option>
+					<option value="Parañaque">Parañaque</option>
+					<option value="Pasay">Pasay</option>
+					<option value="Pasig">Pasig</option>
+					<option value="Quezon City">Quezon City</option>
+					<option value="San Juan">San Juan</option>
+					<option value="Taguig">Taguig</option>
+					<option value="Valenzuela">Valenzuela</option>
+				</form:select></li>
 			<li><label><strong> Postal Code </strong></label>:<form:input
 					type="number" class="required" path="postalCode" /></li>
 		</ul>
@@ -191,6 +212,7 @@ function hideButtons(){
 	$("#btnEdit").hide();
 	$("#btnDelete").hide();
 	$("#btnAdd").hide();
+	$("#btnView").hide();
 }
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <html lang="en">
 
 <head>
@@ -27,11 +27,12 @@
 					<li><a href="${pageContext.request.contextPath}/ims-user">List of Users</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-user/new">Create New User</a></li>
 					-->
-					
-					<li><a href="${pageContext.request.contextPath}/ims-user">Users</a></li>
+				<security:authorize   access="!hasRole('ROLE_CLIENT')">
+										<li><a href="${pageContext.request.contextPath}/ims-user">Users</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-outlet">Outlet</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-product">Product</a></li>
 					<li><a href="${pageContext.request.contextPath}/ims-inventory">Inventory</a></li>
+				</security:authorize>
 					<li><a href="${pageContext.request.contextPath}/ims-report">Reports</a></li>
 					
 					
